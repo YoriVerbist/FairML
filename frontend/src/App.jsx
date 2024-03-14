@@ -1,15 +1,17 @@
 import { useState } from "react";
 import "./App.css";
 import StickyNavbar from "./components/Navbar";
-import PatientCard from "./components/patient/PatientCard";
+import PatientTableCard from "./components/patient/PatientTableCard";
+import PatientDetailCard from "./components/patient/PatientDetailCard";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <StickyNavbar />
-      <PatientCard />
+      <div className="flex flex-row">
+        <PatientTableCard />
+        <PatientDetailCard />
+      </div>
     </>
   );
 }
