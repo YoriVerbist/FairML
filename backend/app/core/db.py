@@ -1,34 +1,41 @@
-from sqlmodel import Session, create_engine, select
+from pymongo import MongoClient
+import uuid
 
-from app import crud
 from app.core.config import settings
-from app.models import User, UserCreate
-
-engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 
 
-# make sure all SQLModel models are imported (app.models) before initializing DB
-# otherwise, SQLModel might fail to initialize relationships properly
-# for more details: https://github.com/tiangolo/full-stack-fastapi-template/issues/28
+def get_database():
+    # Create a connection using MongoClient.
+    client = MongoClient(settings.CONNECTION_STRING)
+    # Create the database
+    return client, client[settings.DBNAME]
 
 
-def init_db(session: Session) -> None:
-    # Tables should be created with Alembic migrations
-    # But if you don't want to use migrations, create
-    # the tables un-commenting the next lines
-    # from sqlmodel import SQLModel
+def fetch_user_details(user):
+    client, db = get_database()
+    collection_name = db[settings.USER_COLLECTION]
+    user_details = collection_name.find_one({"UserName": user})
+    return client, user_details
 
-    # from app.core.engine import engine
-    # This works because the models are already imported and registered from app.models
-    # SQLModel.metadata.create_all(engine)
 
-    user = session.exec(
-        select(User).where(User.email == settings.FIRST_SUPERUSER)
-    ).first()
-    if not user:
-        user_in = UserCreate(
-            email=settings.FIRST_SUPERUSER,
-            password=settings.FIRST_SUPERUSER_PASSWORD,
-            is_superuser=True,
-        )
-        user = crud.create_user(session=session, user_create=user_in)
+def update_user_details(user, newValues):
+    client, db = get_database()
+    collection_name = db[settings.USER_COLLECTION]
+    collection_name.update_one({"UserName": user}, {"$set": newValues})
+    client.close()
+
+def insert_accuracy_detail(accuracy_detail):
+    client, db = get_database()
+    collection_name = db[settings.ACCURACY_COLLECTION]
+    accuracy_detail.update({"_id": uuid.uuid4().hex})
+    collection_name.insert_one(accuracy_detail)
+    client.close()
+
+
+def insert_interaction_data(interaction_detail):
+    client, db = get_database()
+    collection_name = db[settings.INTERACTIONS_COLLECTION]
+    interaction_detail.update(
+        {"_id": interaction_detail["user"]+interaction_detail["cohort"]+uuid.uuid4().hex})
+    collection_name.insert_one(interaction_detail)
+    client.close()
