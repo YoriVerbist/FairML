@@ -1,35 +1,30 @@
 import secrets
-from typing import Annotated, Any, Literal
+from typing import Literal
 
-from pydantic import (
-    AnyUrl,
-    BeforeValidator,
-)
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from dotenv import dotenv_values
 
+class Settings():
+    
 
-def parse_cors(v: Any) -> list[str] | str:
-    if isinstance(v, str) and not v.startswith("["):
-        return [i.strip() for i in v.split(",")]
-    elif isinstance(v, list | str):
-        return v
-    raise ValueError(v)
-
-
-class Settings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file=".env", env_ignore_empty=True, extra="ignore"
-    )
-    PROJECT_NAME: str
+    # Project Details
+    PROJECT_NAME: str = "FariML"
     API_V1_STR: str = "/api/v1"
     SECRET_KEY: str = secrets.token_urlsafe(32)
     # 60 minutes * 24 hours * 8 days = 8 days
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
     DOMAIN: str = "localhost"
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
+    
+    # Database
+    DBNAME: str
+    CONNECTION_STRING:str
+    USER_COLLECTION: str
+    INTERACTIONS_COLLECTION: str
+    ACCURACY_COLLECTION: str
+    MODEL_CONFIG: str
 
     # Information about the features
-    ALL_FEATURES = [
+    ALL_FEATURES: list = [
         "Age",
         "Gender",
         "Smoking",
@@ -48,19 +43,17 @@ class Settings(BaseSettings):
         "Response",
         "Recurred",
     ]
-    DEFAULT_VALUES = [()]
+    DEFAULT_VALUES: list = [()]
 
-    BACKEND_CORS_ORIGINS: Annotated[
-        list[AnyUrl] | str, BeforeValidator(parse_cors)
-    ] = []
+    BACKEND_CORS_ORIGINS: list = []
 
 
-    # Database
-    DBNAME: str
-    CONNECTION_STRING:str
-    USER_COLLECTION: str
-    USER_DETAIL_JSON: str
-    INTERACTIONS_COLLECTION: str
-    ACCURACY_COLLECTION: str
+    # User Detail Template
+    USER_DETAIL_JSON: dict | None = {
+        "UserName": None,
+        "Cohort": None,
+        "Gender": "Male"
+    }
 
-settings = Settings()  # type: ignore
+env_values = dotenv_values("../.env")
+settings = Settings(**env_values)  # type: ignore

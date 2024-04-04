@@ -32,6 +32,22 @@ def insert_accuracy_detail(accuracy_detail):
     client.close()
 
 
+def insert_model_configs(model_configs):
+    client, db = get_database()
+    collection_name = db[settings.MODEL_CONFIG]
+    model_configs.update(
+        {"_id": model_configs["UserName"]+model_configs["Cohort"]})
+    collection_name.insert_one(model_configs)
+    client.close()
+
+
+def update_model_details(user, newValues):
+    client, db = get_database()
+    collection_name = db[settings.MODEL_CONFIG]
+    collection_name.update_one({"UserName": user}, {"$set": newValues})
+    client.close()
+
+
 def insert_interaction_data(interaction_detail):
     client, db = get_database()
     collection_name = db[settings.INTERACTIONS_COLLECTION]

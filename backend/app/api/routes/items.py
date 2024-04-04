@@ -2,7 +2,6 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException
 
-from app.api.deps import CurrentUser, SessionDep
 from app.models import OutputDataModel, OutputwithPayloadDataModel
 
 router = APIRouter()
@@ -10,7 +9,6 @@ router = APIRouter()
 
 @router.get("/", response_model=OutputwithPayloadDataModel)
 def read_items(
-    session: SessionDep, current_user: CurrentUser, skip: int = 0, limit: int = 100
 ) -> Any:
     """
     Retrieve items.
@@ -19,7 +17,7 @@ def read_items(
 
 
 @router.get("/{id}", response_model=OutputwithPayloadDataModel)
-def read_item(session: SessionDep, current_user: CurrentUser, id: int) -> Any:
+def read_item() -> Any:
     """
     Get item by ID.
     """

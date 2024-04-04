@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from pydantic.networks import EmailStr
 
-from app.core.db import get_database
+from app.core.db import get_database, insert_model_configs
 from app.core.config import settings
 
 
@@ -25,7 +25,7 @@ def login_service(user_name, cohort, language):
         collection_name.insert_one(new_user)
         user_details = collection_name.find_one({"UserName": user_name})
         client.close()
-        autocorrect_configs = {
+        model_configs = {
             "UserName": user_name,
             "Cohort": cohort,
             "AutoCorrectConfig": {
@@ -37,7 +37,7 @@ def login_service(user_name, cohort, language):
                 "duplicate": False,
             },
         }
-        insert_autocorrect_configs(autocorrect_configs)
+        insert_model_configs(model_configs)
         return (True, f"New record created for user: {user_name}", user_details)
     else:
         print("Record found")
@@ -64,3 +64,5 @@ def save_interaction_data(config_data):
         f"Successful. Interaction data inserted for user: {config_data.UserId}",
         interaction_detail,
     )
+
+
