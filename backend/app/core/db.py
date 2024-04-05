@@ -6,7 +6,6 @@ from app.core.config import settings
 
 
 def get_database():
-    print(settings["CONNECTION_STRING"])
     # Create a connection using MongoClient.
     client = MongoClient(settings["CONNECTION_STRING"])
     # Create the database
@@ -15,9 +14,12 @@ def get_database():
 
 def init_db():
     client, db = get_database()
-    collection_name = db[settings["MODEL_DATA"]]
-    df = pd.read_csv(settings["MODEL_DATA_PATH"])
-    db.collection_name.insert_many(df.to_dict(orient="records"))
+    # Check if the collection already exists
+    if "model_data" in db.list_collection_names():
+        pass
+    else:
+        df = pd.read_csv(settings["MODEL_DATA_PATH"])
+        db.model_data.insert_many(df.to_dict(orient="records"))
     client.close()
 
 
