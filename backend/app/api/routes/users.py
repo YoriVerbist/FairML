@@ -12,11 +12,10 @@ from app.models import ValidateUserModel
 router = APIRouter()
 
 
-@router.get(
-    "/",
-)
+@router.get("/")
 def read_users() -> Any:
     """
     Retrieve users.
     """
-    pass
+    print("Hello users")
+    return {"message": "Hello users"}

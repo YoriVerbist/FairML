@@ -7,13 +7,12 @@ from app.models import OutputDataModel, OutputwithPayloadDataModel
 router = APIRouter()
 
 
-@router.get("/", response_model=OutputwithPayloadDataModel)
-def read_items(
-) -> Any:
+@router.get("/")
+def read_items() -> Any:
     """
     Retrieve items.
     """
-    pass
+    return {"message": "Items"}
 
 
 @router.get("/{id}", response_model=OutputwithPayloadDataModel)

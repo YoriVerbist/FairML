@@ -1,7 +1,8 @@
 fastapi
 uvicorn[standard]
 pyjwt
-pymongo
+pymongo[srv]
 pydantic-settings
 passlib
 python-dotenv
+pandas

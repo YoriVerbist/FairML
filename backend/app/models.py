@@ -27,9 +27,9 @@ class ValidateUserModel(BaseModel):
 
 
 class FeaturesToInclude(BaseModel):
-    features_to_include: list[str] = settings.ALL_FEATURES
+    features_to_include: list[str] = settings["ALL_FEATURES"]
 
 
 class FeatureRanges(BaseModel):
-    features_to_include: list[str] = settings.ALL_FEATURES
-    features_ranges: list[tuple] = settings.DEFAULT_VALUES
+    features_to_include: list[str] = settings["ALL_FEATURES"]
+    features_ranges: list[tuple] = settings["DEFAULT_VALUES"]
