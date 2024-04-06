@@ -11,13 +11,13 @@ class OutputDataModel(BaseModel):
 class OutputwithPayloadDataModel(BaseModel):
     StatusCode: bool
     StatusMessage: str
-    OutputJson: dict = None
+    Payload: dict
 
 
 class ConfigDataModel(BaseModel):
     UserId: str
     Cohort: str
-    JsonData: dict = None
+    Payload: dict
 
 
 class ValidateUserModel(BaseModel):

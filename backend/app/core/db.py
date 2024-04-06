@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from bson import ObjectId
 import pandas as pd
 import uuid
 
@@ -23,10 +24,32 @@ def init_db():
     client.close()
 
 
+def get_model_data():
+    client, db = get_database()
+    collection_name = db[settings["MODEL_DATA"]]
+    model_data = []
+    for data in collection_name.find():
+        data["_id"] = str(data["_id"])
+        model_data.append(data)
+
+    return client, model_data
+
+
+def get_model_data_by_id(id):
+    client, db = get_database()
+    collection_name = db[settings["MODEL_DATA"]]
+    model_data = collection_name.find_one({"_id": ObjectId(id)})
+    if model_data:
+        model_data["_id"] = str(model_data["_id"])
+        return client, 1, model_data
+    else:
+        return client, 0, None
+
+
 def fetch_user_details(user):
     client, db = get_database()
     collection_name = db[settings["USER_COLLECTION"]]
-    user_details = collection_name.find_one({"UserName": user}) 
+    user_details = collection_name.find_one({"UserName": user})
     return client, user_details
 
 
