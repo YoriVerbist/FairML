@@ -1,8 +1,6 @@
 import secrets
-from typing import Literal
 
 from dotenv import dotenv_values
-from dataclasses import dataclass
 
 
 config = {
@@ -42,4 +40,3 @@ config = {
 env_values = dotenv_values(".env")
 settings = {**config, **env_values}
 
-print(settings)
