@@ -1,8 +1,39 @@
 from fastapi import APIRouter, Depends
-from pydantic.networks import EmailStr
+import pandas as pd
+
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
 
 from app.core.db import get_database, insert_model_configs
 from app.core.config import settings
+
+
+def load_training_data(filters=None, selected_features=None):
+    """Loads training data"""
+    data = pd.read_csv("../../data/Thyroid_Diff.csv")
+
+    if selected_features:
+        data = data[selected_features + ["Recurred"]]
+
+    x_data = data.drop("Recurred", axis="columns")
+    y_data = data["Recurred"]
+
+    return x_data, y_data
+
+
+def train_model_service(X_train, y_train, selected_features=None):
+    svm_classifier = SVC(
+        kernel="linear", probability=True
+    )  # Linear kernel for simplicity, can be changed
+
+    if selected_features:
+        X_train = X_train[selected_features]
+
+    # Train the SVM classifier
+    svm_classifier.fit(X_train, y_train)
+
+    return svm_classifier
 
 
 def login_service(user_name, cohort, language):
@@ -64,5 +95,3 @@ def save_interaction_data(config_data):
         f"Successful. Interaction data inserted for user: {config_data.UserId}",
         interaction_detail,
     )
-
-

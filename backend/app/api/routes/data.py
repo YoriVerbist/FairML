@@ -11,10 +11,9 @@ router = APIRouter()
 @router.get("/", response_model=OutputwithPayloadDataModel)
 def get_items() -> Any:
     """
-    Retrieve items.
+    Retrieve all the data from the model.
     """
     _, data = get_model_data()
-    print("Data", data)
     response = {"StatusCode": 1, "StatusMessage": "Success", "Payload": {"data": data}}
     return response
 
@@ -22,7 +21,7 @@ def get_items() -> Any:
 @router.get("/{id}", response_model=OutputwithPayloadDataModel)
 def get_item(id) -> Any:
     """
-    Get item by ID.
+    Get a specific data from the model by id.
     """
     _, statuscode, data = get_model_data_by_id(id)
 
