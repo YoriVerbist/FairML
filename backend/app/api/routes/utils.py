@@ -16,10 +16,24 @@ def load_training_data(filters=None, selected_features=None):
     if selected_features:
         data = data[selected_features + ["Recurred"]]
 
-    x_data = data.drop("Recurred", axis="columns")
-    y_data = data["Recurred"]
+    X = data.drop("Recurred", axis="columns")
+    y = data["Recurred"]
 
-    return x_data, y_data
+    X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    return X_train, y_train
+
+
+def load_testing_data():
+    """Loads test data"""
+    data = pd.read_csv("../../data/Thyroid_Diff.csv")
+
+    X = data.drop("Recurred", axis="columns")
+    y = data["Recurred"]
+
+    _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    return X_test, y_test
 
 
 def train_model_service(X_train, y_train, selected_features=None):
