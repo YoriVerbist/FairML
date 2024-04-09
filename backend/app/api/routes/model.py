@@ -32,3 +32,24 @@ def get_model() -> Any:
         },
     }
     return response
+
+
+@router.get("/{id}", response_model=OutputwithPayloadDataModel)
+def predict_single_datapoint(id: int) -> Any:
+    """
+    Retrieve all the data from the model.
+    """
+    X_train, y_train = load_training_data(id)
+    x_test, y_test = load_testing_data(id)
+    model = train_model(X_train, y_train)
+    accuracy, probabilities, y_pred = evaluate_model(model, x_test, y_test)
+    response = {
+        "StatusCode": 1,
+        "StatusMessage": "Success",
+        "Payload": {
+            "acuracy": accuracy,
+            "probabilities": probabilities.tolist(),
+            "y_pred": y_pred.tolist(),
+        },
+    }
+    return response

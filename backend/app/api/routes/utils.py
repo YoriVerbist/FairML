@@ -8,9 +8,14 @@ from app.core.db import get_database, insert_model_configs
 from app.core.config import settings
 
 
-def load_training_data(filters=None, selected_features=None):
-    """Loads training data"""
+def load_training_data(id=None, filters=None, selected_features=None):
+    """
+    Loads training data
+    """
     df = pd.read_csv("../data/Thyroid_Diff.csv")
+
+    if id:
+        df = df.drop(id)
 
     if selected_features:
         df = df[selected_features + ["Recurred"]]
@@ -24,8 +29,10 @@ def load_training_data(filters=None, selected_features=None):
     return X_train, y_train
 
 
-def load_testing_data(selected_features=None):
-    """Loads test data"""
+def load_testing_data(id=None, selected_features=None):
+    """
+    Loads test data
+    """
     df = pd.read_csv("../data/Thyroid_Diff.csv")
 
     if selected_features:
@@ -35,6 +42,12 @@ def load_testing_data(selected_features=None):
     X = pd.get_dummies(X, columns=X.columns.tolist(), drop_first=True)
 
     y = df["Recurred"]
+
+    if id:
+        X_test = X.iloc[[id]]
+        y = y[[id]]
+
+        return X_test, y
 
     _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -53,7 +66,10 @@ def train_model(X_train, y_train):
 
 
 def evaluate_model(svm_classifier, X_test, y_test):
-    """Evaluate the model on the test data and return the accuracy and the probabilities of the predictions"""
+    """
+    Evaluate the model on the test data and return the accuracy and the probabilities of
+    the predictions
+    """
 
     # Predict on the test set
     y_pred = svm_classifier.predict(X_test)
