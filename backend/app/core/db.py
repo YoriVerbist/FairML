@@ -39,7 +39,8 @@ def get_model_data():
 def get_model_data_by_id(id):
     client, db = get_database()
     collection_name = db[settings["MODEL_DATA"]]
-    model_data = collection_name.find_one({"_id": ObjectId(id)})
+    model_data = collection_name.find_one({"id": int(id)})
+    print(model_data)
     if model_data:
         model_data["_id"] = str(model_data["_id"])
         return client, 1, model_data
