@@ -1,7 +1,6 @@
-from fastapi import APIRouter, Depends
 import pandas as pd
 
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 
@@ -11,43 +10,61 @@ from app.core.config import settings
 
 def load_training_data(filters=None, selected_features=None):
     """Loads training data"""
-    data = pd.read_csv("../../data/Thyroid_Diff.csv")
+    df = pd.read_csv("../data/Thyroid_Diff.csv")
 
     if selected_features:
-        data = data[selected_features + ["Recurred"]]
+        df = df[selected_features + ["Recurred"]]
 
-    X = data.drop("Recurred", axis="columns")
-    y = data["Recurred"]
+    X = df.drop("Recurred", axis="columns")
+    X = pd.get_dummies(X, columns=X.columns.tolist(), drop_first=True)
+    y = df["Recurred"]
 
     X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, random_state=42)
 
     return X_train, y_train
 
 
-def load_testing_data():
+def load_testing_data(selected_features=None):
     """Loads test data"""
-    data = pd.read_csv("../../data/Thyroid_Diff.csv")
+    df = pd.read_csv("../data/Thyroid_Diff.csv")
 
-    X = data.drop("Recurred", axis="columns")
-    y = data["Recurred"]
+    if selected_features:
+        df = df[selected_features + ["Recurred"]]
+
+    X = df.drop("Recurred", axis="columns")
+    X = pd.get_dummies(X, columns=X.columns.tolist(), drop_first=True)
+
+    y = df["Recurred"]
 
     _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     return X_test, y_test
 
 
-def train_model_service(X_train, y_train, selected_features=None):
+def train_model(X_train, y_train):
     svm_classifier = SVC(
         kernel="linear", probability=True
     )  # Linear kernel for simplicity, can be changed
-
-    if selected_features:
-        X_train = X_train[selected_features]
 
     # Train the SVM classifier
     svm_classifier.fit(X_train, y_train)
 
     return svm_classifier
+
+
+def evaluate_model(svm_classifier, X_test, y_test):
+    """Evaluate the model on the test data and return the accuracy and the probabilities of the predictions"""
+
+    # Predict on the test set
+    y_pred = svm_classifier.predict(X_test)
+
+    # Calculate accuracy
+    accuracy = accuracy_score(y_test, y_pred)
+
+    # Get the probabilities of the predictions
+    probabilities = svm_classifier.predict_proba(X_test)
+
+    return accuracy, probabilities, y_pred
 
 
 def login_service(user_name, cohort, language):
@@ -56,13 +73,13 @@ def login_service(user_name, cohort, language):
     or create a new user if doesn't exist
     """
     client, db = get_database()
-    collection_name = db[settings.USER_COLLECTION]
+    collection_name = db[settings["USER_COLLECTION"]]
     user_details = collection_name.find_one({"UserName": user_name})
 
     # find and update last login time
     if user_details is None:
         print("Record Not Found")
-        new_user = settings.USER_DETAIL_JSON
+        new_user = settings["USER_DETAIL_JSON"]
         new_user["UserName"] = user_name
         new_user["Cohort"] = cohort
         new_user["Language"] = language
