@@ -20,6 +20,7 @@ def init_db():
         pass
     else:
         df = pd.read_csv(settings["MODEL_DATA_PATH"])
+        df["id"] = range(len(df))
         db.model_data.insert_many(df.to_dict(orient="records"))
     client.close()
 
