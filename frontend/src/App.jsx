@@ -21,7 +21,7 @@ function App() {
   }
 
   const handleRowSelect = (patient) => {
-    setSelectedPatient(patient);
+    setSelectedPatient(patients.find((p) => p.id === patient));
     console.log("selectedPatient", selectedPatient);
   };
 
@@ -30,7 +30,7 @@ function App() {
       <StickyNavbar />
       <div className="flex flex-row pt-20 gap-x-10">
         <PatientTable patients={patients} onRowSelect={handleRowSelect} />
-        <PatientDetail patients={patients} />
+        <PatientDetail patient={selectedPatient} />
       </div>
     </>
   );

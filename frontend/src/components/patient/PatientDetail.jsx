@@ -8,155 +8,93 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 
-const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
-
-const TABLE_ROWS = [
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "john@creative-tim.com",
-    job: "Manager",
-    org: "Organization",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    job: "Executive",
-    org: "Projects",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    job: "Manager",
-    org: "Executive",
-    online: false,
-    date: "04/10/21",
-  },
+const KEYS = [
+  "id",
+  "Gender",
+  "Age",
+  "Smoking",
+  "Hx Radiothreapy",
+  "Thyroid Function",
+  "Physical Examination",
+  "Adenopathy",
+  "Pathology",
+  "Focality",
+  "Risk",
+  "Stage",
+  "Response",
 ];
 
-export default function PatientDetail() {
-  return (
-    <>
-      <Card className="h-full w-full max-w-[700px] max-h-[400px]">
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className="mb-8 flex items-center justify-between gap-8">
-            <div>
-              <Typography variant="h6" color="gray" className="mb-4 uppercase">
-                Detail
+export default function PatientDetail({ patient }) {
+  if (!patient) {
+    return (
+      <>
+        <Card className="flex flex-col h-full w-full max-w-[900px] h-300 border-2 border-blue-gray-100">
+          <div>
+            <Typography variant="h4" color="gray" className="mt-4 uppercase">
+              Patient Details
+            </Typography>
+          </div>
+          <CardBody>
+            <div className="p-4 ">
+              <Typography
+                variant="h4"
+                color="gray"
+                className="mt-4 text-gray-400"
+              >
+                No patient selected
               </Typography>
             </div>
-          </div>
-        </CardHeader>
-        <CardBody className="overflow-scroll px-0">
-          <table className="mt-4 w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head) => (
-                  <th
-                    key={head}
-                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      {head}
-                    </Typography>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {TABLE_ROWS.map(({ name, job, org, online, date }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
+          </CardBody>
+        </Card>
+      </>
+    );
+  }
 
-                return (
-                  <tr key={name}>
-                    <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {name}
-                          </Typography>
-                        </div>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="flex flex-col">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {job}
-                        </Typography>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal opacity-70"
-                        >
-                          {org}
-                        </Typography>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="w-max">
-                        <Chip
-                          variant="ghost"
-                          size="sm"
-                          value={online ? "online" : "offline"}
-                          color={online ? "green" : "blue-gray"}
-                        />
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {date}
-                      </Typography>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </CardBody>
-      </Card>
+  const renderKeyValuePairs = () => {
+    return KEYS.map((key) => (
+      <div key={key} className="flex mb-2">
+        <div className="w-1/2 font-semibold">{key}:</div>
+        <div className="w-1/2">{patient[key]}</div>
+      </div>
+    ));
+  };
+
+  // Calculate the number of rows per column
+  const numRowsPerColumn = Math.ceil(KEYS.length / 4);
+
+  // Split the key-value pairs into three columns
+  const column1 = renderKeyValuePairs().slice(0, numRowsPerColumn);
+  const column2 = renderKeyValuePairs().slice(
+    numRowsPerColumn,
+    2 * numRowsPerColumn,
+  );
+  const column3 = renderKeyValuePairs().slice(
+    2 * numRowsPerColumn,
+    3 * numRowsPerColumn,
+  );
+  // Function to render a single column
+  const renderColumn = (columnData) => {
+    return <div className="flex flex-col">{columnData}</div>;
+  };
+
+  return (
+    <>
+      <div>
+        <Card className="flex flex-col h-full w-full max-w-[900px] h-300 border-2 border-blue-gray-100">
+          <div>
+            <Typography variant="h4" color="gray" className="mt-4 uppercase">
+              Patient Details
+            </Typography>
+          </div>
+          <CardBody>
+            <div className="flex">
+              <div className="w-1/3">{renderColumn(column1)}</div>
+              <div className="w-1/3">{renderColumn(column2)}</div>
+              <div className="w-1/3">{renderColumn(column3)}</div>
+            </div>
+          </CardBody>
+        </Card>
+      </div>
     </>
   );
 }
