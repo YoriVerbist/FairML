@@ -7,6 +7,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
+from sklearn.inspection import permutation_importance
 
 from app.core.db import get_database, insert_model_configs
 from app.core.config import settings
@@ -56,7 +57,6 @@ def load_testing_data(id=None, selected_features=None):
 
 
 def train_model(X_train, y_train):
-
     categorical_columns = X_train.drop("Age", axis=1).columns
     pipeline = Pipeline(
         [
@@ -95,6 +95,20 @@ def evaluate_model(svm_classifier, X_test, y_test):
     probabilities = svm_classifier.predict_proba(X_test)
 
     return accuracy, probabilities, y_pred
+
+
+def get_feature_importances(model, X_test, y_test):
+    # Calculate permutation importance
+    perm_importance = permutation_importance(model, X_test, y_test)
+
+    # Get feature importances
+    importances = perm_importance.importances
+
+    # Print feature importances
+    print("Feature Importances:")
+    for i, imp in enumerate(importances):
+        print(f"Feature {i}: {imp}")
+    return importances.tolist()
 
 
 def login_service(user_name, cohort, language):

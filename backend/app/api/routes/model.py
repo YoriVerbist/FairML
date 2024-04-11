@@ -8,6 +8,7 @@ from app.api.routes.utils import (
     load_testing_data,
     train_model,
     evaluate_model,
+    get_feature_importances,
 )
 
 router = APIRouter()
@@ -40,9 +41,9 @@ def predict_single_datapoint(id: int) -> Any:
     Retrieve all the data from the model.
     """
     X_train, y_train = load_training_data(id)
-    x_test, y_test = load_testing_data(id)
+    X_test, y_test = load_testing_data(id)
     model = train_model(X_train, y_train)
-    accuracy, probabilities, y_pred = evaluate_model(model, x_test, y_test)
+    accuracy, probabilities, y_pred = evaluate_model(model, X_test, y_test)
     response = {
         "StatusCode": 1,
         "StatusMessage": "Success",
@@ -51,5 +52,22 @@ def predict_single_datapoint(id: int) -> Any:
             "probabilities": probabilities.tolist(),
             "y_pred": y_pred.tolist(),
         },
+    }
+    return response
+
+
+@router.get("/importances/", response_model=OutputwithPayloadDataModel)
+def get_importances() -> Any:
+    """
+    Retrieve the importances of the features.
+    """
+    X_train, y_train = load_training_data()
+    X_test, y_test = load_testing_data()
+    model = train_model(X_train, y_train)
+    importances = get_feature_importances(model, X_test, y_test)
+    response = {
+        "StatusCode": 1,
+        "StatusMessage": "Success",
+        "Payload": {"importances": importances},
     }
     return response
