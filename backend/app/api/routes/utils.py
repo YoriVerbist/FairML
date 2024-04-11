@@ -1,6 +1,10 @@
 import pandas as pd
+from pandas.core.arrays import categorical
 
 from sklearn.metrics import accuracy_score
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 
@@ -21,7 +25,6 @@ def load_training_data(id=None, filters=None, selected_features=None):
         df = df[selected_features + ["Recurred"]]
 
     X = df.drop("Recurred", axis="columns")
-    X = pd.get_dummies(X, columns=X.columns.tolist(), drop_first=True)
     y = df["Recurred"]
 
     X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -39,8 +42,6 @@ def load_testing_data(id=None, selected_features=None):
         df = df[selected_features + ["Recurred"]]
 
     X = df.drop("Recurred", axis="columns")
-    X = pd.get_dummies(X, columns=X.columns.tolist(), drop_first=True)
-
     y = df["Recurred"]
 
     if id:
@@ -55,14 +56,27 @@ def load_testing_data(id=None, selected_features=None):
 
 
 def train_model(X_train, y_train):
-    svm_classifier = SVC(
-        kernel="linear", probability=True
-    )  # Linear kernel for simplicity, can be changed
 
-    # Train the SVM classifier
-    svm_classifier.fit(X_train, y_train)
+    categorical_columns = X_train.drop("Age", axis=1).columns
+    pipeline = Pipeline(
+        [
+            (
+                "preprocessor",
+                ColumnTransformer(
+                    transformers=[
+                        ("num", "passthrough", ["Age"]),
+                        ("cat", OneHotEncoder(), categorical_columns),
+                    ]
+                ),
+            ),
+            ("classifier", SVC(kernel="linear", probability=True)),
+        ]
+    )
 
-    return svm_classifier
+    # Train the model
+    pipeline.fit(X_train, y_train)
+
+    return pipeline
 
 
 def evaluate_model(svm_classifier, X_test, y_test):
