@@ -4,6 +4,7 @@ import patientService from "./services/patients";
 import StickyNavbar from "./components/Navbar";
 import PatientTable from "./components/patient/PatientTable";
 import PatientDetail from "./components/patient/PatientDetail";
+import ViewVariable from "./components/variable/ViewVariable";
 
 function App() {
   const [patients, setPatients] = useState(null);
@@ -31,6 +32,9 @@ function App() {
       <div className="flex flex-row pt-20 gap-x-10">
         <PatientTable patients={patients} onRowSelect={handleRowSelect} />
         <PatientDetail patient={selectedPatient} />
+      </div>
+      <div className="flex flex-row pt-10 gap-x-10">
+        <ViewVariable patients={patients} />
       </div>
     </>
   );

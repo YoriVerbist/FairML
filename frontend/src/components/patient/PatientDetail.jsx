@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardHeader,
-  Typography,
-  Button,
-  CardBody,
-  Chip,
-  CardFooter,
-} from "@material-tailwind/react";
+import { Card, Typography, CardBody } from "@material-tailwind/react";
 
 import PatientDetailChart from "./PatientDetailChart";
 
