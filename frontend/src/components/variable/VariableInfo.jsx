@@ -24,6 +24,9 @@ export default function VariableInfo({
           })}
         </Select>
       </div>
+      <div className="border-2 w-80 m-auto rounded">
+        <p>{selectedValue}</p>
+      </div>
     </>
   );
 }
