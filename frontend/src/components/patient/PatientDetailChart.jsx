@@ -22,13 +22,12 @@ export default function PatientDefaultChart({ patient }) {
   console.log(prediction);
 
   const pred = prediction.probabilities[0][0];
-  console.log(pred);
 
   const chartConfig = {
     type: "pie",
     width: 200,
     height: 200,
-    series: [pred, 1 - pred],
+    series: [1 - pred, pred],
     options: {
       chart: {
         toolbar: {
@@ -41,17 +40,18 @@ export default function PatientDefaultChart({ patient }) {
       dataLabels: {
         enabled: true,
       },
-      colors: ["#23B90B", "#F63C3C"],
+      colors: ["#F63C3C", "#23B90B"],
       legend: {
         show: false,
       },
+      labels: ["Recurrence", "No Recurrence"],
     },
   };
 
   return (
     <>
       <div>
-        <Typography variant="p" color="gray" className="mt-4">
+        <Typography variant="h6" color="gray" className="mt-4">
           Recurrence rate
         </Typography>
       </div>
