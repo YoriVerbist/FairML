@@ -4,10 +4,10 @@ from pandas.core.arrays import categorical
 from sklearn.metrics import accuracy_score
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
-from sklearn.inspection import permutation_importance
+import shap
 
 from app.core.db import get_database, insert_model_configs
 from app.core.config import settings
@@ -64,9 +64,10 @@ def train_model(X_train, y_train):
                 "preprocessor",
                 ColumnTransformer(
                     transformers=[
-                        ("num", "passthrough", ["Age"]),
+                        ("num", StandardScaler(), ["Age"]),
                         ("cat", OneHotEncoder(), categorical_columns),
-                    ]
+                    ],
+                    remainder="passthrough",
                 ),
             ),
             ("classifier", SVC(kernel="linear", probability=True)),
@@ -97,18 +98,18 @@ def evaluate_model(svm_classifier, X_test, y_test):
     return accuracy, probabilities, y_pred
 
 
-def get_feature_importances(model, X_test, y_test):
+def get_feature_importances(model, X_train, X_test):
+    print("X_train", X_train.shape)
+    print("X_test", X_test.shape)
     # Calculate permutation importance
-    perm_importance = permutation_importance(model, X_test, y_test)
+    explainer = shap.Explainer(model, X_train)
 
-    # Get feature importances
-    importances = perm_importance.importances
+    # Calculate SHAP values for the test set
+    shap_values = explainer(X_train[0].reshape(1, -1))
 
-    # Print feature importances
-    print("Feature Importances:")
-    for i, imp in enumerate(importances):
-        print(f"Feature {i}: {imp}")
-    return importances.tolist()
+    # Plot the SHAP values for the first instance in the test set
+    # shap.summary_plot(shap_values, X_test, feature_names=X_test.columns)
+    return shap_values
 
 
 def login_service(user_name, cohort, language):

@@ -25,6 +25,7 @@ app.include_router(api_router)
 # Initialize the database
 init()
 
+
 @app.get("/")
 def get_root():
     return {"message": "Welcome to the API"}
