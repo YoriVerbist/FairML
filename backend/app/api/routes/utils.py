@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from pandas.core.arrays import categorical
 
@@ -98,14 +99,15 @@ def evaluate_model(svm_classifier, X_test, y_test):
     return accuracy, probabilities, y_pred
 
 
-def get_feature_importances(model, X_train, X_test):
+def get_feature_importances(model, X_train_transformed, X_train, X_test):
+
     print("X_train", X_train.shape)
     print("X_test", X_test.shape)
     # Calculate permutation importance
     explainer = shap.Explainer(model, X_train)
 
     # Calculate SHAP values for the test set
-    shap_values = explainer(X_train[0].reshape(1, -1))
+    shap_values = explainer(X_train)
 
     # Plot the SHAP values for the first instance in the test set
     # shap.summary_plot(shap_values, X_test, feature_names=X_test.columns)

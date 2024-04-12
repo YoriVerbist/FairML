@@ -67,7 +67,8 @@ def get_importances() -> Any:
     importances = get_feature_importances(
         model.predict_proba,
         model.named_steps["preprocessor"].transform(X_train),
-        model.named_steps["preprocessor"].transform(X_test),
+        X_train,
+        X_test,
     )
     response = {
         "StatusCode": 1,
