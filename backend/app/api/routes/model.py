@@ -1,6 +1,10 @@
 from typing import Any
 
 from fastapi import APIRouter, HTTPException
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.compose import ColumnTransformer
+import pandas as pd
+import numpy as np
 
 from app.models import OutputwithPayloadDataModel
 from app.api.routes.utils import (
@@ -64,15 +68,15 @@ def get_importances() -> Any:
     X_train, y_train = load_training_data()
     X_test, y_test = load_testing_data()
     model = train_model(X_train, y_train)
+
     importances = get_feature_importances(
         model.predict_proba,
-        model.named_steps["preprocessor"].transform(X_train),
         X_train,
         X_test,
     )
     response = {
         "StatusCode": 1,
         "StatusMessage": "Success",
-        "Payload": {"importances": importances},
+        "Payload": {"importances": importances.tolist()},
     }
     return response

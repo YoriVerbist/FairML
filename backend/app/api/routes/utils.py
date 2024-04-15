@@ -5,7 +5,7 @@ from pandas.core.arrays import categorical
 from sklearn.metrics import accuracy_score
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 import shap
@@ -26,6 +26,8 @@ def load_training_data(id=None, filters=None, selected_features=None):
     if selected_features:
         df = df[selected_features + ["Recurred"]]
 
+    df = transform_to_numerical(df)
+
     X = df.drop("Recurred", axis="columns")
     y = df["Recurred"]
 
@@ -43,6 +45,8 @@ def load_testing_data(id=None, selected_features=None):
     if selected_features:
         df = df[selected_features + ["Recurred"]]
 
+    df = transform_to_numerical(df)
+
     X = df.drop("Recurred", axis="columns")
     y = df["Recurred"]
 
@@ -58,27 +62,12 @@ def load_testing_data(id=None, selected_features=None):
 
 
 def train_model(X_train, y_train):
-    categorical_columns = X_train.drop("Age", axis=1).columns
-    pipeline = Pipeline(
-        [
-            (
-                "preprocessor",
-                ColumnTransformer(
-                    transformers=[
-                        ("num", StandardScaler(), ["Age"]),
-                        ("cat", OneHotEncoder(), categorical_columns),
-                    ],
-                    remainder="passthrough",
-                ),
-            ),
-            ("classifier", SVC(kernel="linear", probability=True)),
-        ]
-    )
 
+    model = SVC(kernel="linear", probability=True)
     # Train the model
-    pipeline.fit(X_train, y_train)
+    model.fit(X_train, y_train)
 
-    return pipeline
+    return model
 
 
 def evaluate_model(svm_classifier, X_test, y_test):
@@ -99,19 +88,29 @@ def evaluate_model(svm_classifier, X_test, y_test):
     return accuracy, probabilities, y_pred
 
 
-def get_feature_importances(model, X_train_transformed, X_train, X_test):
+def get_feature_importances(model, X_train, X_test):
+    """
+    Calculates the feature importances of the dataset with shap
+    """
+    print("X_train: ", X_train)
 
-    print("X_train", X_train.shape)
-    print("X_test", X_test.shape)
     # Calculate permutation importance
     explainer = shap.Explainer(model, X_train)
 
     # Calculate SHAP values for the test set
     shap_values = explainer(X_train)
 
-    # Plot the SHAP values for the first instance in the test set
-    # shap.summary_plot(shap_values, X_test, feature_names=X_test.columns)
-    return shap_values
+    return shap_values.values
+
+
+def transform_to_numerical(data):
+    categorical_columns = data.drop("Age", axis=1).columns
+    le = LabelEncoder()
+    for feat in categorical_columns:
+        le.fit(data[feat])
+        data[feat] = le.transform(data[feat])
+
+    return data
 
 
 def login_service(user_name, cohort, language):
