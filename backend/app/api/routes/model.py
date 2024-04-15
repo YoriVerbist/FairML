@@ -69,11 +69,25 @@ def get_importances() -> Any:
     X_test, y_test = load_testing_data()
     model = train_model(X_train, y_train)
 
-    importances = get_feature_importances(
-        model.predict_proba,
-        X_train,
-        X_test,
-    )
+    importances = get_feature_importances(model.predict_proba, X_train, X_test)
+    response = {
+        "StatusCode": 1,
+        "StatusMessage": "Success",
+        "Payload": {"importances": importances.tolist()},
+    }
+    return response
+
+
+@router.get("/importances/{id}", response_model=OutputwithPayloadDataModel)
+def get_importances(id: int) -> Any:
+    """
+    Retrieve the importances of the features.
+    """
+    X_train, y_train = load_training_data()
+    X_test, y_test = load_testing_data()
+    model = train_model(X_train, y_train)
+
+    importances = get_feature_importances(model.predict_proba, X_train, X_test, id)
     response = {
         "StatusCode": 1,
         "StatusMessage": "Success",

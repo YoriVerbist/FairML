@@ -88,7 +88,7 @@ def evaluate_model(svm_classifier, X_test, y_test):
     return accuracy, probabilities, y_pred
 
 
-def get_feature_importances(model, X_train, X_test):
+def get_feature_importances(model, X_train, X_test, id=0):
     """
     Calculates the feature importances of the dataset with shap
     """
@@ -98,7 +98,7 @@ def get_feature_importances(model, X_train, X_test):
     explainer = shap.Explainer(model, X_train)
 
     # Calculate SHAP values for the test set
-    shap_values = explainer(X_train)
+    shap_values = explainer(X_test.iloc[id : id + 1])
 
     return shap_values.values
 
