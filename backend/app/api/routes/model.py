@@ -79,7 +79,7 @@ def get_importances() -> Any:
 
 
 @router.get("/importances/{id}", response_model=OutputwithPayloadDataModel)
-def get_importances(id: int) -> Any:
+def get_importances_id(id: int) -> Any:
     """
     Retrieve the importances of the features.
     """
