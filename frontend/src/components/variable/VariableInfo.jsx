@@ -17,7 +17,7 @@ export default function VariableInfo({
 
   return (
     <>
-      <div className="w-80 border-2 m-auto">
+      <div className="w-80 m-auto">
         <Select label="Select Variable" onChange={onSelectChange}>
           {filteredKeys.map((key, index) => {
             return (
