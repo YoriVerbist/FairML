@@ -32,7 +32,11 @@ export default function VariableInfo({
         <table className="w-full">
           <thead>
             <tr className="flex w-full">
-              <th className="w-1/2 p-2">{selectedValue}</th>
+              {selectedValue ? (
+                <th className="w-1/2 p-2">{selectedValue}</th>
+              ) : (
+                <th className="w-1/2 p-2">Feature Name</th>
+              )}
               <th className="w-1/2 p-2">Feature Importance</th>
             </tr>
           </thead>

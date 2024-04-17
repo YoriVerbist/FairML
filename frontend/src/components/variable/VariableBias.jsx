@@ -109,7 +109,11 @@ export default function VariableBias({ patients, selectedValue }) {
   return (
     <>
       <div className="border-2 w-96 m-auto rounded">
-        <Chart {...chartConfig} />
+        {selectedValue ? (
+          <Chart {...chartConfig} />
+        ) : (
+          <p className="text-center">Select a variable to view its bias</p>
+        )}
       </div>
     </>
   );
