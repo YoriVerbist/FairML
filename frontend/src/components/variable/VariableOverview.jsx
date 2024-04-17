@@ -1,36 +1,21 @@
+import { Card, Typography, CardBody } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
+import modelService from "../../services/imporances";
 
-export default function VariableBias({ patients, selectedValue }) {
-  const occurrenceCount = {};
-
-  // Loop through the payload data
-  patients.forEach((patient) => {
-    // Get the value of the Focality key from the current patient object
-    const value = patient[selectedValue];
-
-    // Increment the occurrence count for the value
-    occurrenceCount[value] = (occurrenceCount[value] || 0) + 1;
-  });
-
-  const uniqueValues = Object.keys(occurrenceCount).sort();
-
-  // Sort the occurrenceCount object based on the keys (unique values)
-  const sortedOccurrenceCount = {};
-  uniqueValues.forEach((value) => {
-    sortedOccurrenceCount[value] = occurrenceCount[value];
-  });
-
-  console.log(occurrenceCount);
-  console.log(Object.values(occurrenceCount));
-  console.log(uniqueValues);
+export default function VariableOverview({ patients }) {
+  const excludeKeys = ["_id", "id"];
+  const filteredKeys = Object.keys(patients[0]).filter(
+    (key) => !excludeKeys.includes(key),
+  );
 
   const chartConfig = {
     type: "bar",
     height: 240,
+    width: 600,
     series: [
       {
-        name: "Occurrences",
-        data: [...Object.values(sortedOccurrenceCount)],
+        name: "Importance",
+        data: [1, 2, 3, 0.5, -1],
       },
     ],
     options: {
@@ -48,7 +33,7 @@ export default function VariableBias({ patients, selectedValue }) {
       colors: ["#020617"],
       plotOptions: {
         bar: {
-          columnWidth: "40%",
+          columnWidth: "70%",
           borderRadius: 2,
         },
       },
@@ -67,7 +52,7 @@ export default function VariableBias({ patients, selectedValue }) {
             fontWeight: 400,
           },
         },
-        categories: uniqueValues,
+        categories: filteredKeys,
       },
       yaxis: {
         labels: {
@@ -101,16 +86,19 @@ export default function VariableBias({ patients, selectedValue }) {
       },
     },
   };
-
   return (
     <>
-      <div className="border-2 w-96 m-auto rounded">
-        {selectedValue ? (
+      <Card className="flex flex-col w-full max-w-[800px] max-h-[300px] border-2 border-blue-gray-100 items-center h-screen">
+        <div>
+          <Typography variant="h4" color="gray" className="mt-4 uppercase">
+            Data Overview
+          </Typography>
+        </div>
+        <CardBody className="px-0"></CardBody>
+        <div className="border-2 w-[400px] m-auto rounded">
           <Chart {...chartConfig} />
-        ) : (
-          <p className="text-center">Select a variable to view its bias</p>
-        )}
-      </div>
+        </div>
+      </Card>
     </>
   );
 }

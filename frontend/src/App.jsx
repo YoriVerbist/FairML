@@ -5,6 +5,7 @@ import StickyNavbar from "./components/Navbar";
 import PatientTable from "./components/patient/PatientTable";
 import PatientDetail from "./components/patient/PatientDetail";
 import ViewVariable from "./components/variable/ViewVariable";
+import VariableOverview from "./components/variable/VariableOverview";
 
 function App() {
   const [patients, setPatients] = useState(null);
@@ -35,6 +36,7 @@ function App() {
       </div>
       <div className="flex flex-row pt-10 gap-x-10">
         <ViewVariable patients={patients} />
+        <VariableOverview patients={patients} />
       </div>
     </>
   );
