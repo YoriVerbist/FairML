@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING, DESCENDING
 from bson import ObjectId
 import pandas as pd
 import uuid
@@ -29,7 +29,7 @@ def get_model_data():
     client, db = get_database()
     collection_name = db[settings["MODEL_DATA"]]
     model_data = []
-    for data in collection_name.find():
+    for data in collection_name.find().sort("id", ASCENDING):
         data["_id"] = str(data["_id"])
         model_data.append(data)
 
