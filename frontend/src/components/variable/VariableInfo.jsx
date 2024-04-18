@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Select, Option } from "@material-tailwind/react";
 
 export default function VariableInfo({
@@ -6,7 +5,7 @@ export default function VariableInfo({
   selectedValue,
   onSelectChange,
 }) {
-  const excludeKeys = ["_id", "id"];
+  const excludeKeys = ["_id", "id", "Recurred"];
   const filteredKeys = Object.keys(patients[0]).filter(
     (key) => !excludeKeys.includes(key),
   );
