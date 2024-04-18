@@ -6,6 +6,7 @@ import PatientTable from "./components/patient/PatientTable";
 import PatientDetail from "./components/patient/PatientDetail";
 import ViewVariable from "./components/variable/ViewVariable";
 import VariableOverview from "./components/variable/VariableOverview";
+import AdjustSlider from "./components/slider/AdjustSlider";
 
 function App() {
   const [patients, setPatients] = useState(null);
@@ -36,7 +37,10 @@ function App() {
       </div>
       <div className="flex flex-row pt-10 gap-x-10">
         <ViewVariable patients={patients} />
-        <VariableOverview patients={patients} />
+        <div className="flex flex-col  gap-y-10 w-[800px]">
+          <VariableOverview patients={patients} />
+          <AdjustSlider patients={patients} />
+        </div>
       </div>
     </>
   );

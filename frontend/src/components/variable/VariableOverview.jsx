@@ -69,7 +69,7 @@ export default function VariableOverview({ patients }) {
         },
       },
       title: {
-        text: "Variable Bias",
+        text: "Feature importances",
       },
       dataLabels: {
         enabled: false,
@@ -93,7 +93,7 @@ export default function VariableOverview({ patients }) {
           rotate: -90,
           style: {
             colors: "#616161",
-            fontSize: "12px",
+            fontSize: "10px",
             fontFamily: "inherit",
             fontWeight: 400,
           },
@@ -110,7 +110,7 @@ export default function VariableOverview({ patients }) {
         labels: {
           style: {
             colors: "#616161",
-            fontSize: "12px",
+            fontSize: "10px",
             fontFamily: "inherit",
             fontWeight: 400,
           },
@@ -143,14 +143,14 @@ export default function VariableOverview({ patients }) {
   };
   return (
     <>
-      <Card className="flex flex-col w-full max-w-[800px] max-h-[350px] border-2 border-blue-gray-100 items-center h-screen">
+      <Card className="flex flex-col w-full max-w-[800px] max-h-[400px] border-2 border-blue-gray-100 items-center h-screen">
         <div>
           <Typography variant="h4" color="gray" className="mt-4 uppercase">
             Data Overview
           </Typography>
         </div>
         <CardBody className="px-0 flex flex-col space-y-4">
-          <div className="border-2 w-[550px] h-[250px] m-auto rounded">
+          <div className="border-2 w-[550px] h-[300px] m-auto rounded">
             <Chart {...chartConfig} className="pb-32" />
           </div>
         </CardBody>

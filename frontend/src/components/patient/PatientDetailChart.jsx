@@ -21,7 +21,7 @@ export default function PatientDefaultChart({ patient }) {
 
   console.log(prediction);
 
-  const pred = prediction.probabilities[0][0];
+  const pred = parseFloat(prediction.probabilities[0][0].toFixed(4));
 
   const chartConfig = {
     type: "pie",
