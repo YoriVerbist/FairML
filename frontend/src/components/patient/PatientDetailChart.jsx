@@ -15,7 +15,7 @@ export default function PatientDefaultChart({ patient }) {
         setPrediction(data);
       });
     }
-  }, [patient, previousPatient]);
+  }, [patient]);
 
   if (!prediction) return false;
 
