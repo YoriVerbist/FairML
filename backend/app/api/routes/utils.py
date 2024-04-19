@@ -100,6 +100,55 @@ def get_feature_importances(model, X_train, X_test, id=0):
     return shap_values.values
 
 
+def get_variable_importance(model, X_train, X_test, feature, id=0):
+    """
+    Calculates the variable importances of a specific feature with shap
+    """
+
+    # Calculate permutation importance
+    explainer = shap.Explainer(model, X_train)
+
+    # Calculate SHAP values for the test set
+    shap_values = explainer(X_test)
+
+    shap_values = shap_values[:, feature]
+
+    averages = caluclate_averages(
+        shap_values.data.tolist(), shap_values.values.tolist()
+    )
+
+    return sorted(averages)
+
+
+def get_recurrence_rate(feature):
+    df = pd.read_csv("../data/Thyroid_Diff.csv")
+    pass
+
+
+def caluclate_averages(keys, values):
+    sums = {}
+    counts = {}
+
+    # Iterate over the data and calculate sums and counts for each key
+    for key, values in zip(keys, values):
+        if key not in sums:
+            sums[key] = [0, 0]  # Initialize sums to [0, 0] for each key
+            counts[key] = 0  # Initialize counts to 0 for each key
+        sums[key][0] += values[0]  # Add the first value to the sum
+        sums[key][1] += values[1]  # Add the second value to the sum
+        counts[key] += 1  # Increment the count
+
+    # Calculate the average for each key
+    averages = {
+        key: [sum_value / counts[key] for sum_value in sum_values]
+        for key, sum_values in sums.items()
+    }
+
+    # Print or use the averages as needed
+    print(averages.items())
+    return averages.items()
+
+
 def transform_to_numerical(data):
     categorical_columns = data.drop("Age", axis=1).columns
     le = LabelEncoder()
