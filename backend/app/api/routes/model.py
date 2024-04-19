@@ -129,7 +129,7 @@ def get_recurrence(feature) -> Any:
         "StatusCode": 1,
         "StatusMessage": "Success",
         "Payload": {
-            "importances": recurrence_rate,
+            "recurrence_rates": recurrence_rate,
         },
     }
     return response
