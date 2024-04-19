@@ -122,7 +122,9 @@ def get_variable_importance(model, X_train, X_test, feature, id=0):
 
 def get_recurrence_rate(feature):
     df = pd.read_csv("../data/Thyroid_Diff.csv")
-    pass
+    df["Recurred"] = df["Recurred"].map({"Yes": 1, "No": 0})
+    recurrence = df.groupby(feature)["Recurred"].mean()
+    return recurrence.tolist()
 
 
 def caluclate_averages(keys, values):
