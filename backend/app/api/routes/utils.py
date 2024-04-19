@@ -124,7 +124,9 @@ def get_recurrence_rate(feature):
     df = pd.read_csv("../data/Thyroid_Diff.csv")
     df["Recurred"] = df["Recurred"].map({"Yes": 1, "No": 0})
     recurrence = df.groupby(feature)["Recurred"].mean()
-    return recurrence.tolist()
+    recurrence = dict(zip(recurrence.index, recurrence.values))
+    print(recurrence)
+    return recurrence
 
 
 def caluclate_averages(keys, values):
