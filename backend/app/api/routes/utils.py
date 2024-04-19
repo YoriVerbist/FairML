@@ -1,5 +1,4 @@
 import pandas as pd
-from typing import List, Tuple
 
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
@@ -125,7 +124,7 @@ def get_recurrence_rate(feature):
     df["Recurred"] = df["Recurred"].map({"Yes": 1, "No": 0})
     recurrence = df.groupby(feature)["Recurred"].mean()
     recurrence = dict(zip(recurrence.index, recurrence.values))
-    print(recurrence)
+    print(sorted(recurrence))
     return recurrence
 
 
@@ -148,8 +147,6 @@ def caluclate_averages(keys, values):
         for key, sum_values in sums.items()
     }
 
-    # Print or use the averages as needed
-    print(averages.items())
     return averages.items()
 
 
