@@ -5,6 +5,7 @@ import modelService from "../../services/imporances";
 
 export default function VariableOverview({ patients }) {
   const [importances, setImportances] = useState(null);
+
   useEffect(() => {
     console.log("Fetching importances...");
     modelService.getAll().then((data) => {
@@ -90,7 +91,7 @@ export default function VariableOverview({ patients }) {
           show: false,
         },
         labels: {
-          rotate: -90,
+          rotate: -45,
           style: {
             colors: "#616161",
             fontSize: "10px",
