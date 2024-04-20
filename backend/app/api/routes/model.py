@@ -1,10 +1,6 @@
 from typing import Any
 
 from fastapi import APIRouter, HTTPException
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn.compose import ColumnTransformer
-import pandas as pd
-import numpy as np
 
 from app.models import OutputwithPayloadDataModel
 from app.api.routes.utils import (
