@@ -15,7 +15,12 @@ export default function AdjustVariable({
     ...new Set(patients.map((patient) => patient[selectedValue])),
   ];
 
-  const [checkedItems, setCheckedItems] = useState({});
+  const selectAll = filteredKeys.reduce((acc, value) => {
+    acc[value] = true;
+    return acc;
+  }, {});
+
+  const [checkedItems, setCheckedItems] = useState(selectAll);
   console.log("checkedItems", checkedItems);
   const handleCheckboxChange = (value) => {
     setCheckedItems({
