@@ -26,7 +26,7 @@ export default function VariableBias({ patients, selectedValue }) {
 
   const chartConfig = {
     type: "bar",
-    height: 240,
+    height: 300,
     series: [
       {
         name: "Occurrences",
@@ -40,7 +40,7 @@ export default function VariableBias({ patients, selectedValue }) {
         },
       },
       title: {
-        show: "Variable Bias",
+        text: "Variable Counts",
       },
       dataLabels: {
         enabled: false,
@@ -53,6 +53,9 @@ export default function VariableBias({ patients, selectedValue }) {
         },
       },
       xaxis: {
+        title: {
+          text: "Features",
+        },
         axisTicks: {
           show: false,
         },
@@ -70,6 +73,9 @@ export default function VariableBias({ patients, selectedValue }) {
         categories: uniqueValues,
       },
       yaxis: {
+        title: {
+          text: "Count",
+        },
         labels: {
           style: {
             colors: "#616161",
