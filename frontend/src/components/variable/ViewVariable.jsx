@@ -14,9 +14,7 @@ export default function ViewVariable({ patients }) {
 
   return (
     <>
-      {/* <Card className="flex flex-col h-full w-full max-w-[400px] max-h-[600px] border-2 border-blue-gray-100"> */}
-      <Card className="flex flex-col w-full max-w-[400px] max-h-[850px] border-2 border-blue-gray-100 items-center ">
-        {/* <Card className="flex justify-center items-center h-screen w-full max-w-[400px] border-2 border-blue-gray-100"> */}
+      <Card className="flex flex-col h-full w-[400px] max-h-[850px] border-2 border-blue-gray-100 items-center ">
         <div>
           <Typography variant="h4" color="gray" className="mt-4 uppercase">
             View Variables

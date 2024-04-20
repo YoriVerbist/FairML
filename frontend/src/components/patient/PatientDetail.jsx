@@ -9,7 +9,7 @@ const KEYS = [
   "Smoking",
   "Hx Radiothreapy",
   "Thyroid Function",
-  "Physical Examination",
+  // "Physical Examination",
   "Adenopathy",
   "Pathology",
   "Focality",
@@ -22,7 +22,7 @@ export default function PatientDetail({ patient }) {
   if (!patient) {
     return (
       <>
-        <Card className="flex flex-col h-full w-full max-w-[900px] h-300 border-2 border-blue-gray-100">
+        <Card className="flex flex-col h-full w-[900px] h-300 border-2 border-blue-gray-100">
           <div>
             <Typography variant="h4" color="gray" className="mt-4 uppercase">
               Patient Details
@@ -46,9 +46,9 @@ export default function PatientDetail({ patient }) {
 
   const renderKeyValuePairs = () => {
     return KEYS.map((key) => (
-      <div key={key} className="flex mb-2">
+      <div key={key} className="flex h-12  text-left align-middle mb-2">
         <div className="w-1/2 font-semibold">{key}:</div>
-        <div className="w-1/2">{patient[key]}</div>
+        <div className="w-1/2 pl-2 ">{patient[key]}</div>
       </div>
     ));
   };
@@ -74,7 +74,7 @@ export default function PatientDetail({ patient }) {
   return (
     <>
       <div>
-        <Card className="flex flex-col h-full w-full  max-h-[300px] border-2 border-blue-gray-100">
+        <Card className="flex flex-col h-full w-[900px]  max-h-[300px] border-2 border-blue-gray-100">
           <div>
             <Typography variant="h4" color="gray" className="mt-4 uppercase">
               Patient Details
@@ -85,7 +85,7 @@ export default function PatientDetail({ patient }) {
               <div className="w-1/3">{renderColumn(column1)}</div>
               <div className="w-1/3">{renderColumn(column2)}</div>
               <div className="w-1/3">{renderColumn(column3)}</div>
-              <div className="mb-2 grid place-items-center px-2">
+              <div className="pb-2 grid place-items-center px-2">
                 <PatientDetailChart patient={patient} />
               </div>
             </div>

@@ -18,7 +18,7 @@ const PatientTable = ({ patients, onRowSelect }) => {
 
   return (
     <>
-      <Card className="flex flex-col h-full w-full max-w-[400px] max-h-[300px] border-2 border-blue-gray-100">
+      <Card className="flex flex-col h-full w-[400px] max-h-[300px] border-2 border-blue-gray-100">
         <div>
           <Typography variant="h4" color="gray" className="mt-4 uppercase">
             Patients

@@ -37,7 +37,7 @@ function App() {
       </div>
       <div className="flex flex-row pt-10 gap-x-10">
         <ViewVariable patients={patients} />
-        <div className="flex flex-col  gap-y-10 w-[800px]">
+        <div className="flex flex-col  gap-y-10">
           <VariableOverview patients={patients} />
           <AdjustSlider patients={patients} />
         </div>
