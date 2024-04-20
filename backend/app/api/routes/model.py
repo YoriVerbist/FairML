@@ -129,3 +129,18 @@ def get_recurrence(feature) -> Any:
         },
     }
     return response
+
+
+@router.post("/change_feature", response_model=OutputwithPayloadDataModel)
+def change_feature(features: dict) -> Any:
+    """
+    Change the feature of the model.
+    """
+    response = {
+        "StatusCode": 1,
+        "StatusMessage": "Success",
+        "Payload": {
+            "features": features,
+        },
+    }
+    return response
