@@ -16,4 +16,9 @@ const predictPatient = async (patientid) => {
   return request.then((response) => response.data.Payload);
 };
 
-export default { getAll, predictPatient };
+const changeFeatures = async (data) => {
+  const request = axios.post(modelUrl + "change_features", data);
+  return request.then((response) => response.data.Payload);
+};
+
+export default { getAll, predictPatient, changeFeatures };

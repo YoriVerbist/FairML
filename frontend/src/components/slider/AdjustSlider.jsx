@@ -1,15 +1,22 @@
 import { useState, useEffect } from "react";
 import { Card, Typography, CardBody } from "@material-tailwind/react";
 import modelService from "../../services/imporances";
-import AdjustVariable from "../variable/AdjustVariable";
+import AdjustVariable from "./AdjustVariable";
+import ApplyAdjustments from "./ApplyAdjustments";
 
 export default function AdjustSlider({ patients }) {
-  const [selectedValue, setSelectedValue] = useState("");
+  const excludeKeys = ["_id", "id", "Recurred"];
+  const filteredKeys = Object.keys(patients[0]).filter(
+    (key) => !excludeKeys.includes(key),
+  );
 
-  const handleSelectChange = (value) => {
-    setSelectedValue(value);
-    console.log(selectedValue);
-  };
+  const selectAll = filteredKeys.reduce((acc, value) => {
+    acc[value] = true;
+    return acc;
+  }, {});
+
+  const [checkedItems, setCheckedItems] = useState(selectAll);
+
   return (
     <>
       <Card className="flex flex-col w-[900px] max-h-[400px] border-2 border-blue-gray-100 items-center h-screen">
@@ -22,11 +29,14 @@ export default function AdjustSlider({ patients }) {
           <div className="flex flex-row space-x-2">
             <AdjustVariable
               patients={patients}
-              selectedValue={selectedValue}
-              onSelectChange={handleSelectChange}
+              checkedItems={checkedItems}
+              setCheckedItems={setCheckedItems}
             />
             <div className="border-2 w-[370px] h-[300px] m-auto rounded">
-              something
+              <ApplyAdjustments
+                patients={patients}
+                checkedItems={checkedItems}
+              />
             </div>
           </div>
         </CardBody>

@@ -21,6 +21,4 @@ const getRecurrence = async (feature) => {
   return request.then((response) => response.data.Payload.recurrence_rates);
 };
 
-const changeFeatures = async (data) => {};
-
 export default { getAll, predictFeature, getRecurrence };

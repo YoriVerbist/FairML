@@ -3,25 +3,14 @@ import { Select, Option, Checkbox } from "@material-tailwind/react";
 
 export default function AdjustVariable({
   patients,
-  selectedValue,
-  onSelectChange,
+  checkedItems,
+  setCheckedItems,
 }) {
   const excludeKeys = ["_id", "id", "Recurred"];
   const filteredKeys = Object.keys(patients[0]).filter(
     (key) => !excludeKeys.includes(key),
   );
 
-  const uniqueValues = [
-    ...new Set(patients.map((patient) => patient[selectedValue])),
-  ];
-
-  const selectAll = filteredKeys.reduce((acc, value) => {
-    acc[value] = true;
-    return acc;
-  }, {});
-
-  const [checkedItems, setCheckedItems] = useState(selectAll);
-  console.log("checkedItems", checkedItems);
   const handleCheckboxChange = (value) => {
     setCheckedItems({
       ...checkedItems,
@@ -32,15 +21,6 @@ export default function AdjustVariable({
   return (
     <>
       <div className="border-2 w-[370px] h-[300px] m-auto rounded space-y-4">
-        {/* <Select label="Select Variable" onChange={onSelectChange}> */}
-        {/*   {filteredKeys.map((key, index) => { */}
-        {/*     return ( */}
-        {/*       <Option key={index} value={key} className="text-center"> */}
-        {/*         {key} */}
-        {/*       </Option> */}
-        {/*     ); */}
-        {/*   })} */}
-        {/* </Select> */}
         <div className="">
           <h2 className="font-bold">Features</h2>
           <div className="overflow-auto h-[250px]">
@@ -51,7 +31,6 @@ export default function AdjustVariable({
                   onChange={() => handleCheckboxChange(key)}
                   color="indigo"
                   inputProps={{ "aria-label": `${key}-checkbox` }}
-                  defaultChecked
                 />
                 <label htmlFor={`${key}-checkbox`} className="ml-2">
                   {key}
