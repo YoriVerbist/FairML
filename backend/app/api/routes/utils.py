@@ -20,6 +20,10 @@ def load_training_data(id=None, filters=None, selected_features=None):
         df = df.drop(id)
 
     if selected_features:
+        selected_features = [
+            feature for feature, value in selected_features.items() if value
+        ]
+        print("selected_features", selected_features)
         df = df[selected_features + ["Recurred"]]
 
     df = transform_to_numerical(df)
@@ -39,8 +43,13 @@ def load_testing_data(id=None, selected_features=None):
     df = pd.read_csv("../data/Thyroid_Diff.csv")
 
     if selected_features:
+        selected_features = [
+            feature for feature, value in selected_features.items() if value
+        ]
+        print("selected_features", selected_features)
         df = df[selected_features + ["Recurred"]]
 
+        print(df.columns)
     df = transform_to_numerical(df)
 
     X = df.drop("Recurred", axis="columns")

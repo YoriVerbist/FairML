@@ -22,6 +22,29 @@ def init_db():
         df = pd.read_csv(settings["MODEL_DATA_PATH"])
         df["id"] = range(len(df))
         db.model_data.insert_many(df.to_dict(orient="records"))
+    if "user_data" in db.list_collection_names():
+        pass
+    else:
+        FEATURES = {
+            "Age": True,
+            "Gender": True,
+            "Smoking": True,
+            "Hx Smoking": True,
+            "Hx Radiothreapy": True,
+            "Thyroid Function": True,
+            "Physical Examination": True,
+            "Adenopathy": True,
+            "Pathology": True,
+            "Focality": True,
+            "Risk": True,
+            "T": True,
+            "N": True,
+            "M": True,
+            "Stage": True,
+            "Response": True,
+        }
+        db.user_data.insert_one(FEATURES)
+
     client.close()
 
 
