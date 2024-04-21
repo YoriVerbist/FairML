@@ -33,10 +33,7 @@ export default function AdjustSlider({ patients }) {
               setCheckedItems={setCheckedItems}
             />
             <div className="border-2 w-[370px] h-[300px] m-auto rounded">
-              <ApplyAdjustments
-                patients={patients}
-                checkedItems={checkedItems}
-              />
+              <ApplyAdjustments patients={patients} changes={checkedItems} />
             </div>
           </div>
         </CardBody>
