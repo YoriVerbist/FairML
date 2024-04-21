@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import Landing from "./Landing.jsx";
 import ErrorPage from "./error-page";
+import Signup from "./Signup.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "dashboard",
     element: <App />,
+  },
+  {
+    path: "signup",
+    element: <Signup />,
   },
 ]);
 

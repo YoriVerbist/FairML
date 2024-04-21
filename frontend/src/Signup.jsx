@@ -4,7 +4,7 @@ import { Typography, Input, Button } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
-function Landing() {
+function Signup() {
   const [user, setUser] = useState({
     id: "",
     username: "",
@@ -37,10 +37,10 @@ function Landing() {
       <section className="grid text-center h-screen items-center p-8">
         <div>
           <Typography variant="h3" color="blue-gray" className="mb-2">
-            Sign In
+            Sign Up
           </Typography>
           <Typography className="mb-16 text-gray-600 font-normal text-[18px]">
-            Enter your email and password to sign in
+            Enter your email and password to sign up
           </Typography>
           <form action="#" className="mx-auto max-w-[24rem] text-left">
             <div className="mb-6">
@@ -94,18 +94,8 @@ function Landing() {
               />
             </div>
             <Button color="gray" size="lg" className="mt-6" fullWidth>
-              sign in
+              sign up
             </Button>
-            <Typography
-              variant="small"
-              color="gray"
-              className="mt-4 text-center font-normal"
-            >
-              Not registered?{" "}
-              <Link to="signup" className="font-medium text-gray-900">
-                Create account
-              </Link>
-            </Typography>
           </form>
         </div>
       </section>
@@ -113,4 +103,4 @@ function Landing() {
   );
 }
 
-export default Landing;
+export default Signup;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Typography, Button } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 export default function StickyNavbar() {
   return (
@@ -20,14 +21,14 @@ export default function StickyNavbar() {
                 size="sm"
                 className="hidden lg:inline-block"
               >
-                <span>Log In</span>
+                <Link to="/">Sign In</Link>
               </Button>
               <Button
                 variant="gradient"
                 size="sm"
                 className="hidden lg:inline-block"
               >
-                <span>Sign in</span>
+                <Link to="/signup">Sign Up</Link>
               </Button>
             </div>
           </div>
