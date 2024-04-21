@@ -24,10 +24,6 @@ export default function VariableInfo({
     (key) => !excludeKeys.includes(key),
   );
 
-  const uniqueValues = [
-    ...new Set(patients.map((patient) => patient[selectedValue])),
-  ];
-
   return (
     <>
       <div className="w-80 m-auto">

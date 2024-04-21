@@ -11,6 +11,7 @@ import AdjustSlider from "./components/slider/AdjustSlider";
 function App() {
   const [patients, setPatients] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState(null);
+  const [updateCount, setUpdateCount] = useState(0);
 
   useEffect(() => {
     console.log("Fetching patients...");
@@ -38,8 +39,8 @@ function App() {
       <div className="flex flex-row pt-10 gap-x-10">
         <ViewVariable patients={patients} />
         <div className="flex flex-col  gap-y-10">
-          <VariableOverview patients={patients} />
-          <AdjustSlider patients={patients} />
+          <VariableOverview patients={patients} updateCount={updateCount} />
+          <AdjustSlider patients={patients} updateCount={setUpdateCount} />
         </div>
       </div>
     </>

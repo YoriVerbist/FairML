@@ -3,7 +3,7 @@ import { Card, Typography, CardBody } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
 import modelService from "../../services/imporances";
 
-export default function VariableOverview({ patients }) {
+export default function VariableOverview({ patients, updateCount }) {
   const [importances, setImportances] = useState(null);
 
   useEffect(() => {
@@ -16,12 +16,12 @@ export default function VariableOverview({ patients }) {
       );
       console.log("importances", importances);
     });
-  }, []);
+  }, [patients, updateCount]);
 
   if (!importances) {
     return (
       <>
-        <Card className="flex flex-col w-[800px] max-h-[300px] border-2 border-blue-gray-100 items-center h-screen">
+        <Card className="flex flex-col w-[900px] max-h-[300px] border-2 border-blue-gray-100 items-center h-screen">
           <div>
             <Typography variant="h4" color="gray" className="mt-4 uppercase">
               Data Overview

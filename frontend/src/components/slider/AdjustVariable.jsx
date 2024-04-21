@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Select, Option, Checkbox } from "@material-tailwind/react";
+import { Checkbox } from "@material-tailwind/react";
 
 export default function AdjustVariable({
   patients,
