@@ -9,6 +9,11 @@ import VariableOverview from "./components/variable/VariableOverview";
 import AdjustSlider from "./components/slider/AdjustSlider";
 
 function App() {
+  const [user, setUser] = useState({
+    id: "",
+    group: "all",
+    language: "en",
+  });
   const [patients, setPatients] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [updateCount, setUpdateCount] = useState(0);
