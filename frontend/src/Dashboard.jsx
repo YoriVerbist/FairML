@@ -8,12 +8,7 @@ import ViewVariable from "./components/variable/ViewVariable";
 import VariableOverview from "./components/variable/VariableOverview";
 import AdjustSlider from "./components/slider/AdjustSlider";
 
-function App() {
-  const [user, setUser] = useState({
-    id: "",
-    group: "all",
-    language: "en",
-  });
+function App({ user, setUser }) {
   const [patients, setPatients] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [updateCount, setUpdateCount] = useState(0);
@@ -44,8 +39,16 @@ function App() {
       <div className="flex flex-row pt-10 gap-x-10">
         <ViewVariable patients={patients} />
         <div className="flex flex-col  gap-y-10">
-          <VariableOverview patients={patients} updateCount={updateCount} />
-          <AdjustSlider patients={patients} updateCount={setUpdateCount} />
+          <VariableOverview
+            patients={patients}
+            updateCount={updateCount}
+            user={user}
+          />
+          <AdjustSlider
+            patients={patients}
+            updateCount={setUpdateCount}
+            user={user}
+          />
         </div>
       </div>
     </>

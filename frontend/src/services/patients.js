@@ -16,8 +16,13 @@ const predictPatient = async (patientid) => {
   return request.then((response) => response.data.Payload);
 };
 
-const changeFeatures = async (data) => {
-  const request = axios.post(modelUrl + "change_features", data);
+const changeFeatures = async (data, user) => {
+  console.log("1.", data);
+  console.log("2.", user);
+  const request = axios.post(modelUrl + "change_features", {
+    features: data,
+    user_id: user.id,
+  });
   return request.then((response) => response.data.Payload);
 };
 

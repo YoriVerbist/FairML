@@ -1,14 +1,12 @@
 import axios from "axios";
-const url = "http://127.0.0.1:8000/user/";
+const url = "http://127.0.0.1:8000/users/";
 
 const createUser = async (user) => {
   const request = axios.post(url, {
-    UserId: user.id,
+    userId: user.id,
   });
   return request.then((response) => {
-    if (response.data.StatusCode) {
-      return true;
-    }
+    response.data.StatusCode;
   });
 };
 

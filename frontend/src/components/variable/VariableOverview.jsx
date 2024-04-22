@@ -3,7 +3,7 @@ import { Card, Typography, CardBody } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
 import modelService from "../../services/imporances";
 
-export default function VariableOverview({ patients, updateCount }) {
+export default function VariableOverview({ patients, updateCount, user }) {
   const [importances, setImportances] = useState(null);
   const [features, setFeatures] = useState(null);
 
@@ -14,7 +14,7 @@ export default function VariableOverview({ patients, updateCount }) {
 
   useEffect(() => {
     console.log("Fetching importances...");
-    modelService.getAll().then((data) => {
+    modelService.getAll(user).then((data) => {
       console.log("data", data);
       const features = [];
       const importances = [];

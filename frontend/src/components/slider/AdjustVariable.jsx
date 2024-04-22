@@ -4,6 +4,7 @@ export default function AdjustVariable({
   patients,
   checkedItems,
   setCheckedItems,
+  user,
 }) {
   const excludeKeys = ["_id", "id", "Recurred"];
   const filteredKeys = Object.keys(patients[0]).filter(
