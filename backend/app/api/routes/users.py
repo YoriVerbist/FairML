@@ -1,12 +1,9 @@
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException
-from sqlmodel import col, delete, func, select
+from fastapi import APIRouter
+from app.core.db import fetch_user_details, update_user_details, create_user
 
-from app import crud
-from app.core.config import settings
-from app.core.security import get_password_hash, verify_password
-from app.models import ValidateUserModel
+from app.models import OutputDataModel
 
 
 router = APIRouter()
@@ -19,3 +16,17 @@ def read_users() -> Any:
     """
     print("Hello users")
     return {"message": "Hello users"}
+
+
+@router.post("/", response_model=OutputDataModel)
+def create_user_db(user: dict) -> Any:
+    """
+    Create a new user.
+    """
+    print(user)
+    _, succes = create_user(user)
+    response = {
+        "StatusCode": succes,
+        "StatusMessage": "Success",
+    }
+    return response

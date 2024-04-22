@@ -82,6 +82,32 @@ def fetch_user_details(user_id):
     return client, user_details
 
 
+def create_user(user):
+    client, db = get_database()
+    collection_name = db[settings["USER_COLLECTION"]]
+    FEATURES = {
+        "id": user["id"],
+        "Age": True,
+        "Gender": True,
+        "Smoking": True,
+        "Hx Smoking": True,
+        "Hx Radiothreapy": True,
+        "Thyroid Function": True,
+        "Physical Examination": True,
+        "Adenopathy": True,
+        "Pathology": True,
+        "Focality": True,
+        "Risk": True,
+        "T": True,
+        "N": True,
+        "M": True,
+        "Stage": True,
+        "Response": True,
+    }
+    collection_name.insert_one(FEATURES)
+    return client, 1
+
+
 def update_user_details(user_id, newValues):
     client, db = get_database()
     collection_name = db[settings["USER_COLLECTION"]]

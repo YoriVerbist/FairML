@@ -90,14 +90,13 @@ def get_importances(user_id: str = "0") -> Any:
     _, FEATURES = fetch_user_details(user_id)
     X_train, y_train = load_training_data(selected_features=FEATURES)
     X_test, _ = load_testing_data(selected_features=FEATURES)
-    print("importance features", FEATURES)
     model = train_model(X_train, y_train)
 
     importances = get_feature_importances(model.predict_proba, X_train, X_test)
     response = {
         "StatusCode": 1,
         "StatusMessage": "Success",
-        "Payload": {"importances": importances.tolist()},
+        "Payload": {"importances": importances.tolist(), "features": FEATURES},
     }
     return response
 
