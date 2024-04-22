@@ -14,7 +14,6 @@ export default function VariableInfo({
       console.log("Calculating feature recurrence rate...");
       modelService.getRecurrence(selectedValue).then((data) => {
         setRecurrenceRate(data);
-        console.log("Reucrrence rate", data);
       });
     }
   }, [selectedValue]);

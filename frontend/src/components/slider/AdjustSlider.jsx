@@ -16,7 +16,6 @@ export default function AdjustSlider({ patients, updateCount, user }) {
   }, {});
 
   const [checkedItems, setCheckedItems] = useState(selectAll);
-  console.log("checkedItems", checkedItems);
 
   return (
     <>

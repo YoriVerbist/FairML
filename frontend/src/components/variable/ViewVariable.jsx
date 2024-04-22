@@ -9,7 +9,6 @@ export default function ViewVariable({ patients, user }) {
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);
-    console.log(selectedValue);
   };
 
   if (user.id === "") {

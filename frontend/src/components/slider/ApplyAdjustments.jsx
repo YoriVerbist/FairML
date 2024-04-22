@@ -8,10 +8,8 @@ export default function AdjustVariable({
   user,
 }) {
   const handleClick = async (changes) => {
-    console.log(changes);
     setUpdateCount((count) => count + 1);
     const changedFeatures = await patientService.changeFeatures(changes, user);
-    console.log(changedFeatures);
   };
 
   return (

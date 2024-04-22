@@ -3,13 +3,11 @@ const modelUrl = "http://127.0.0.1:8000/model/";
 
 const getAll = async (user) => {
   const request = axios.get(modelUrl + "importances/?user_id=" + user.id);
-  console.log(request);
   console.log("Getting importances...");
   return request.then((response) => response.data.Payload);
 };
 
 const predictFeature = async (dataId) => {
-  console.log(dataId);
   const predictUrl = modelUrl + "var_importances/" + dataId;
   const request = axios.get(predictUrl);
   return request.then((response) => response.data.Payload);

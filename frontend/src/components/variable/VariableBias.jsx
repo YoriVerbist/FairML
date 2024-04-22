@@ -20,10 +20,6 @@ export default function VariableBias({ patients, selectedValue }) {
     sortedOccurrenceCount[value] = occurrenceCount[value];
   });
 
-  console.log("Occurence count", occurrenceCount);
-  console.log("Occurence count values", Object.values(occurrenceCount));
-  console.log("Unique values", uniqueValues);
-
   const chartConfig = {
     type: "bar",
     height: 300,

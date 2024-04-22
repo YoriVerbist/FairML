@@ -4,14 +4,11 @@ const modelUrl = "http://127.0.0.1:8000/model/";
 
 const getAll = async () => {
   const request = axios.get(patientsUrl);
-  console.log(request);
-  console.log("Getting the patient data");
+  console.log("Getting the patient data...");
   return request.then((response) => response.data.Payload.data);
 };
 
 const predictPatient = async (patientid, user) => {
-  console.log(patientid);
-  console.log(user.id);
   const predictUrl = modelUrl + patientid + "?user_id=" + user.id;
   const request = axios.get(predictUrl);
   return request.then((response) => response.data.Payload);

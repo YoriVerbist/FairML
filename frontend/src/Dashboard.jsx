@@ -34,7 +34,6 @@ function App({ user, setUser }) {
 
   const handleRowSelect = (patient) => {
     setSelectedPatient(patients.find((p) => p.id === patient));
-    console.log("selectedPatient", selectedPatient);
   };
 
   return (

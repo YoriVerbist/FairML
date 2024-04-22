@@ -17,7 +17,6 @@ function Landing({ user, setUser }) {
   }, [user.group]);
 
   const selectedDashType = () => {
-    console.log("user", user);
     if (userService.createUser(user)) {
       navigate("/dashboard");
     } else {

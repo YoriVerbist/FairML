@@ -17,8 +17,6 @@ export default function PatientDefaultChart({ patient, user }) {
 
   if (!prediction) return false;
 
-  console.log(prediction);
-
   const pred = parseFloat(prediction.probabilities[0][0].toFixed(4));
 
   const chartConfig = {

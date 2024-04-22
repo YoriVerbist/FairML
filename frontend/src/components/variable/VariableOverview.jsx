@@ -22,9 +22,7 @@ export default function VariableOverview({ patients, updateCount, user }) {
 
   useEffect(() => {
     console.log("Fetching importances...");
-    console.log("user", user);
     modelService.getAll(user).then((data) => {
-      console.log("data", data);
       const features = [];
       const importances = [];
       if (data && data.features && data.importances) {
@@ -48,8 +46,6 @@ export default function VariableOverview({ patients, updateCount, user }) {
           }
         });
       }
-      console.log("importances", importances);
-      console.log("features", features);
       setImportances(importances);
       setFeatures(features);
     });
@@ -81,9 +77,6 @@ export default function VariableOverview({ patients, updateCount, user }) {
   const sortedDictionary = Object.fromEntries(
     Object.entries(dictionary).sort(([, a], [, b]) => b - a),
   );
-
-  console.log("sortedDictionary", sortedDictionary);
-  console.log(Object.keys(sortedDictionary));
 
   const chartConfig = {
     type: "bar",
