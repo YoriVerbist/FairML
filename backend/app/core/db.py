@@ -73,9 +73,7 @@ def get_model_data_by_id(id):
 def fetch_user_details(user_id):
     client, db = get_database()
     collection_name = db[settings["USER_COLLECTION"]]
-    print(collection_name)
     user_details = collection_name.find_one({"id": str(user_id)})
-    print("user details", user_details)
     if user_details:
         user_details["_id"] = str(user_details["_id"])
         return client, user_details

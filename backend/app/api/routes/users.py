@@ -23,7 +23,6 @@ def create_user_db(user: dict) -> Any:
     """
     Create a new user.
     """
-    print(user)
     _, succes = create_user(user)
     response = {
         "StatusCode": succes,

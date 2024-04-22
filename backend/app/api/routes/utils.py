@@ -25,7 +25,6 @@ def load_training_data(id=None, filters=None, selected_features=None):
             for feature, value in selected_features.items()
             if value and feature in df.columns
         ]
-        print("selected_features", selected_features)
         df = df[selected_features + ["Recurred"]]
 
     df = transform_to_numerical(df)
@@ -50,10 +49,8 @@ def load_testing_data(id=None, selected_features=None):
             for feature, value in selected_features.items()
             if value and feature in df.columns
         ]
-        print("selected_features", selected_features)
         df = df[selected_features + ["Recurred"]]
 
-        print(df.columns)
     df = transform_to_numerical(df)
 
     X = df.drop("Recurred", axis="columns")
@@ -101,7 +98,6 @@ def get_feature_importances(model, X_train, X_test, id=0):
     """
     Calculates the feature importances of the dataset with shap
     """
-    print("X_train: ", X_train)
 
     # Calculate permutation importance
     explainer = shap.Explainer(model, X_train)
@@ -137,7 +133,6 @@ def get_recurrence_rate(feature):
     df["Recurred"] = df["Recurred"].map({"Yes": 1, "No": 0})
     recurrence = df.groupby(feature)["Recurred"].mean()
     recurrence = dict(zip(recurrence.index, recurrence.values))
-    print(sorted(recurrence))
     return recurrence
 
 
