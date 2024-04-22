@@ -1,6 +1,8 @@
 from pymongo import MongoClient, ASCENDING, DESCENDING
 import pandas as pd
 import uuid
+from sqlalchemy import create_engine
+import os
 
 from app.core.config import settings
 
@@ -46,6 +48,11 @@ def init_db():
         db.user_data.insert_one(FEATURES)
 
     client.close()
+
+    if not os.path.exists("data.db"):
+        engine = create_engine("sqlite:///data.db")
+        df = pd.read_csv("../data/Thyroid_Diff.csv")
+        df.to_sql("data", engine, index=False)
 
 
 def get_model_data():

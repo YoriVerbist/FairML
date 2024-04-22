@@ -1,5 +1,7 @@
 import pandas as pd
 
+from app.core.config import settings
+
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
@@ -7,11 +9,19 @@ from sklearn.svm import SVC
 import shap
 
 from langchain.agents.agent_types import AgentType
-from langchain_experimental.agents import create_pandas_dataframe_agent
 from langchain_community.llms import Ollama
+from langchain_openai import ChatOpenAI
+from langchain_community.agent_toolkits import create_sql_agent
+from langchain_community.utilities import SQLDatabase
+
+from sqlalchemy import create_engine
 
 from app.core.db import get_database
 from app.core.config import settings
+
+import os
+
+os.environ["OPENAI_API_KEY"] = settings["OPENAPI_KEY"]
 
 
 def load_training_data(id=None, filters=None, selected_features=None):
@@ -240,11 +250,13 @@ def answer_question(user_input):
     Gives the user input to the agent
     """
     df = pd.read_csv("../data/Thyroid_Diff.csv")
+    engine = create_engine("sqlite:///data.db")
+    # df.to_sql("data", engine, index=False)
+    db = SQLDatabase(engine=engine)
 
-    llm = Ollama(model="llama2")
+    llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+    # llm = Ollama(model="llama2")
 
-    agent = create_pandas_dataframe_agent(
-        llm, df, agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
-    )
-    response = agent.run({"input": user_input})
+    agent = create_sql_agent(llm, db=db, verbose=True)
+    response = agent.invoke({"input": user_input})
     return response

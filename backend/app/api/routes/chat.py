@@ -22,4 +22,4 @@ def get_user_input(input: dict) -> Any:
     print(input)
     response = answer_question(input)
     print(response)
-    return {"text": response}
+    return {"text": response["output"]}
