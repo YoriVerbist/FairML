@@ -60,10 +60,11 @@ def get_model(user_id: str = "0") -> Any:
 
 
 @router.get("/{id}", response_model=OutputwithPayloadDataModel)
-def predict_single_datapoint(user_id: str = "0") -> Any:
+def predict_single_datapoint(id: str, user_id: str = "0") -> Any:
     """
     Retrieve all the data from the model.
     """
+    id = int(id)
     _, FEATURES = fetch_user_details(user_id)
     X_train, y_train = load_training_data(id, selected_features=FEATURES)
     X_test, y_test = load_testing_data(id, selected_features=FEATURES)
@@ -86,7 +87,6 @@ def get_importances(user_id: str = "0") -> Any:
     """
     Retrieve the importances of the features.
     """
-    print(user_id)
     _, FEATURES = fetch_user_details(user_id)
     X_train, y_train = load_training_data(selected_features=FEATURES)
     X_test, _ = load_testing_data(selected_features=FEATURES)

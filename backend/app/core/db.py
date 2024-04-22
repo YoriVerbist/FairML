@@ -81,10 +81,11 @@ def fetch_user_details(user_id):
 
 
 def create_user(user):
+    print(user)
     client, db = get_database()
     collection_name = db[settings["USER_COLLECTION"]]
     FEATURES = {
-        "id": user["id"],
+        "id": user["userid"],
         "Age": True,
         "Gender": True,
         "Smoking": True,
