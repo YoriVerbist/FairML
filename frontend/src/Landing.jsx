@@ -35,7 +35,7 @@ function Landing({ user, setUser }) {
 
   return (
     <>
-      <StickyNavbar />
+      <StickyNavbar user={user} />
       <section className="grid text-center h-screen items-center p-8">
         <div>
           <Typography variant="h3" color="blue-gray" className="mb-2">

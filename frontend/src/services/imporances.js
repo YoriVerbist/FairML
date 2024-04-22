@@ -2,9 +2,7 @@ import axios from "axios";
 const modelUrl = "http://127.0.0.1:8000/model/";
 
 const getAll = async (user) => {
-  const request = axios.get(modelUrl + "importances/", {
-    userId: user.id,
-  });
+  const request = axios.get(modelUrl + "importances/?user_id=" + user.id);
   console.log(request);
   console.log("Getting importances...");
   return request.then((response) => response.data.Payload);

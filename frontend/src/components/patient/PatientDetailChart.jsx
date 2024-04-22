@@ -4,13 +4,13 @@ import { Typography } from "@material-tailwind/react";
 
 import predictService from "../../services/patients";
 
-export default function PatientDefaultChart({ patient }) {
+export default function PatientDefaultChart({ patient, user }) {
   // const [previousPatient, setPreviousPatient] = useState(null);
   const [prediction, setPrediction] = useState(null);
 
   useEffect(() => {
     console.log("Predicting patient...");
-    predictService.predictPatient(patient.id).then((data) => {
+    predictService.predictPatient(patient.id, user).then((data) => {
       setPrediction(data);
     });
   }, [patient]);

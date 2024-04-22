@@ -31,7 +31,7 @@ function App({ user, setUser }) {
 
   return (
     <>
-      <StickyNavbar />
+      <StickyNavbar user={user} />
       <div className="flex flex-row pt-20 gap-x-10">
         <PatientTable patients={patients} onRowSelect={handleRowSelect} />
         <PatientDetail patient={selectedPatient} />

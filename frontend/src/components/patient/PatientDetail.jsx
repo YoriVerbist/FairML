@@ -18,7 +18,7 @@ const KEYS = [
   "Response",
 ];
 
-export default function PatientDetail({ patient }) {
+export default function PatientDetail({ patient, user }) {
   if (!patient) {
     return (
       <>
@@ -86,7 +86,7 @@ export default function PatientDetail({ patient }) {
               <div className="w-1/3">{renderColumn(column2)}</div>
               <div className="w-1/3">{renderColumn(column3)}</div>
               <div className="pb-2 grid place-items-center px-2">
-                <PatientDetailChart patient={patient} />
+                <PatientDetailChart patient={patient} user={user} />
               </div>
             </div>
           </CardBody>
