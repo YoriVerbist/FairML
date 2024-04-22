@@ -1,5 +1,4 @@
 from pymongo import MongoClient, ASCENDING, DESCENDING
-from bson import ObjectId
 import pandas as pd
 import uuid
 
@@ -26,6 +25,7 @@ def init_db():
         pass
     else:
         FEATURES = {
+            "id": "0",
             "Age": True,
             "Gender": True,
             "Smoking": True,
@@ -63,7 +63,6 @@ def get_model_data_by_id(id):
     client, db = get_database()
     collection_name = db[settings["MODEL_DATA"]]
     model_data = collection_name.find_one({"id": int(id)})
-    print(model_data)
     if model_data:
         model_data["_id"] = str(model_data["_id"])
         return client, 1, model_data
@@ -71,33 +70,22 @@ def get_model_data_by_id(id):
         return client, 0, None
 
 
-def fetch_user_details(user):
+def fetch_user_details(user_id):
     client, db = get_database()
     collection_name = db[settings["USER_COLLECTION"]]
-    user_details = collection_name.find_one({"UserName": user})
+    print(collection_name)
+    user_details = collection_name.find_one({"id": str(user_id)})
+    print("user details", user_details)
+    if user_details:
+        user_details["_id"] = str(user_details["_id"])
+        return client, user_details
     return client, user_details
 
 
-def update_user_details(user, newValues):
+def update_user_details(user_id, newValues):
     client, db = get_database()
     collection_name = db[settings["USER_COLLECTION"]]
-    collection_name.update_one({}, {"$set": newValues})
-    client.close()
-
-
-def insert_accuracy_detail(accuracy_detail):
-    client, db = get_database()
-    collection_name = db[settings["ACCURACY_COLLECTION"]]
-    accuracy_detail.update({"_id": uuid.uuid4().hex})
-    collection_name.insert_one(accuracy_detail)
-    client.close()
-
-
-def insert_model_configs(model_configs):
-    client, db = get_database()
-    collection_name = db[settings["MODEL_CONFIG"]]
-    model_configs.update({"_id": model_configs["UserName"] + model_configs["Cohort"]})
-    collection_name.insert_one(model_configs)
+    collection_name.update_one({"id": str(user_id)}, {"$set": newValues})
     client.close()
 
 

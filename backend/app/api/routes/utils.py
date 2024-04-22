@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 import shap
 
-from app.core.db import get_database, insert_model_configs
+from app.core.db import get_database
 from app.core.config import settings
 
 
@@ -21,7 +21,9 @@ def load_training_data(id=None, filters=None, selected_features=None):
 
     if selected_features:
         selected_features = [
-            feature for feature, value in selected_features.items() if value
+            feature
+            for feature, value in selected_features.items()
+            if value and feature in df.columns
         ]
         print("selected_features", selected_features)
         df = df[selected_features + ["Recurred"]]
@@ -44,7 +46,9 @@ def load_testing_data(id=None, selected_features=None):
 
     if selected_features:
         selected_features = [
-            feature for feature, value in selected_features.items() if value
+            feature
+            for feature, value in selected_features.items()
+            if value and feature in df.columns
         ]
         print("selected_features", selected_features)
         df = df[selected_features + ["Recurred"]]
@@ -160,7 +164,10 @@ def caluclate_averages(keys, values):
 
 
 def transform_to_numerical(data):
-    categorical_columns = data.drop("Age", axis=1).columns
+    if "Age" in data.columns:
+        categorical_columns = data.drop("Age", axis=1).columns
+    else:
+        categorical_columns = data.columns
     le = LabelEncoder()
     for feat in categorical_columns:
         le.fit(data[feat])
@@ -201,7 +208,6 @@ def login_service(user_name, cohort, language):
                 "duplicate": False,
             },
         }
-        insert_model_configs(model_configs)
         return (True, f"New record created for user: {user_name}", user_details)
     else:
         print("Record found")
