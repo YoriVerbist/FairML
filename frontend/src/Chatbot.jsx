@@ -5,13 +5,11 @@ import StickyNavbar from "./components/Navbar";
 import PatientTable from "./components/patient/PatientTable";
 import PatientDetail from "./components/patient/PatientDetail";
 import ViewVariable from "./components/variable/ViewVariable";
-import VariableOverview from "./components/variable/VariableOverview";
-import AdjustSlider from "./components/slider/AdjustSlider";
+import Chat from "./components/chatbot/Chat";
 
-function App({ user, setUser }) {
+function Chatbot({ user, setUser }) {
   const [patients, setPatients] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState(null);
-  const [updateCount, setUpdateCount] = useState(0);
 
   useEffect(() => {
     console.log("Fetching patients...");
@@ -49,10 +47,12 @@ function App({ user, setUser }) {
       </div>
       <div className="flex flex-row pt-10 gap-x-10">
         <ViewVariable patients={patients} user={user} />
-        <div className="flex flex-col  gap-y-10"></div>
+        <div className="flex flex-col  gap-y-10">
+          <Chat />
+        </div>
       </div>
     </>
   );
 }
 
-export default App;
+export default Chatbot;

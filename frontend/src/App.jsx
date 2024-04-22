@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./Dashboard.jsx";
 import Chatbot from "./Chatbot.jsx";
+import Info from "./components/Info.jsx";
 import Landing from "./Landing.jsx";
 import ErrorPage from "./error-page";
 import Signup from "./Signup.jsx";
@@ -31,8 +32,8 @@ function App() {
       errorElement: <ErrorPage />,
     },
     {
-      path: "signup",
-      element: <Signup />,
+      path: "info",
+      element: <Info user={user} setUser={setUser} />,
       errorElement: <ErrorPage />,
     },
   ]);
