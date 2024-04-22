@@ -6,6 +6,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 import shap
 
+from langchain.agents.agent_types import AgentType
+from langchain_experimental.agents import create_pandas_dataframe_agent
+from langchain_community.llms import Ollama
+
 from app.core.db import get_database
 from app.core.config import settings
 
@@ -229,3 +233,18 @@ def save_interaction_data(config_data):
         f"Successful. Interaction data inserted for user: {config_data.UserId}",
         interaction_detail,
     )
+
+
+def answer_question(user_input):
+    """
+    Gives the user input to the agent
+    """
+    df = pd.read_csv("../data/Thyroid_Diff.csv")
+
+    llm = Ollama(model="llama2")
+
+    agent = create_pandas_dataframe_agent(
+        llm, df, agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
+    )
+    response = agent.run({"input": user_input})
+    return response

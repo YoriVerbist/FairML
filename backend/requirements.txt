@@ -7,4 +7,9 @@ passlib
 python-dotenv
 pandas
 scikit-learn
-lime
+shap
+langchain 
+langchain-openai 
+langchain-community 
+langchain-experimental
+tabulate
