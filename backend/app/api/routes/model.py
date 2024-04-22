@@ -37,10 +37,11 @@ FEATURES = {
 
 
 @router.get("/", response_model=OutputwithPayloadDataModel)
-def get_model(user_id: str = "0") -> Any:
+def get_model(user_id: dict = {"user_id": "0"}) -> Any:
     """
     Retrieve all the data from the model.
     """
+    user_id = user_id["id"]
     _, FEATURES = fetch_user_details(user_id)
 
     print(FEATURES)
@@ -61,10 +62,11 @@ def get_model(user_id: str = "0") -> Any:
 
 
 @router.get("/{id}", response_model=OutputwithPayloadDataModel)
-def predict_single_datapoint(id: int, user_id: str = "0") -> Any:
+def predict_single_datapoint(user_id: dict = {"user_id": "0"}) -> Any:
     """
     Retrieve all the data from the model.
     """
+    user_id = user_id["id"]
     _, FEATURES = fetch_user_details(user_id)
     X_train, y_train = load_training_data(id, selected_features=FEATURES)
     X_test, y_test = load_testing_data(id, selected_features=FEATURES)
@@ -83,10 +85,11 @@ def predict_single_datapoint(id: int, user_id: str = "0") -> Any:
 
 
 @router.get("/importances/", response_model=OutputwithPayloadDataModel)
-def get_importances(user_id: str = "0") -> Any:
+def get_importances(user_id: dict = {"user_id": "0"}) -> Any:
     """
     Retrieve the importances of the features.
     """
+    user_id = user_id["user_id"]
     _, FEATURES = fetch_user_details(user_id)
     X_train, y_train = load_training_data(selected_features=FEATURES)
     X_test, _ = load_testing_data(selected_features=FEATURES)
@@ -102,10 +105,11 @@ def get_importances(user_id: str = "0") -> Any:
 
 
 @router.get("/importances/{id}", response_model=OutputwithPayloadDataModel)
-def get_importances_id(id: int, user_id: str = "0") -> Any:
+def get_importances_id(id: int, user_id: dict = {"user_id": "0"}) -> Any:
     """
     Retrieve the importances of the features.
     """
+    user_id = user_id["id"]
     _, FEATURES = fetch_user_details(user_id)
     X_train, y_train = load_training_data(selected_features=FEATURES)
     X_test, _ = load_testing_data(selected_features=FEATURES)
@@ -121,10 +125,11 @@ def get_importances_id(id: int, user_id: str = "0") -> Any:
 
 
 @router.get("/var_importances/{feature}", response_model=OutputwithPayloadDataModel)
-def get_var_importances(feature, user_id: str = "0") -> Any:
+def get_var_importances(feature, user_id: dict = {"user_id": "0"}) -> Any:
     """
     Retrieve the importances of the features.
     """
+    user_id = user_id["id"]
     _, FEATURES = fetch_user_details(user_id)
     X_train, y_train = load_training_data(selected_features=FEATURES)
     X_test, _ = load_testing_data(selected_features=FEATURES)
@@ -159,12 +164,17 @@ def get_recurrence(feature) -> Any:
 
 
 @router.post("/change_features", response_model=OutputwithPayloadDataModel)
-def change_features(features: dict, user_id: str = "0") -> Any:
+# def change_features(features: dict, user_id: dict = {"user_id": "0"}) -> Any:
+def change_features(payload: dict) -> Any:
     """
     Get the features that need to be used when training the model
     """
-    FEATURES = features
+    print(payload)
+    features = payload["features"]
+    user_id = payload["user_id"]
 
+    FEATURES = features
+    print("id", user_id)
     update_user_details(user_id, FEATURES)
 
     print(FEATURES)
