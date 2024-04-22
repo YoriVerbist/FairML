@@ -18,36 +18,11 @@ function Landing({ user, setUser }) {
 
   const selectedDashType = () => {
     console.log(user);
-    axios
-      .post(
-        BASE_API + "/validateusers",
-        {
-          UserId: user.id,
-          Cohort: user.group,
-          Language: user.language,
-        },
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, OPTIONS",
-            "Access-Control-Allow-Headers":
-              "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept",
-          },
-        },
-      )
-      .then(function (response) {
-        //console.log(response.data);
-        if (response.data["StatusCode"]) {
-          navigate("/dashboard/" + user.cohort);
-        } else {
-          console.log("Error reported. Login failed.");
-          // TO-DO: Navigate to Error Screen.
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (userService.createUser(user)) {
+      navigate("/dashboard");
+    } else {
+      naviage("/error-page");
+    }
   };
 
   const handleInput = (e) => {
@@ -85,18 +60,26 @@ function Landing({ user, setUser }) {
                 </Typography>
               </label>
               <Input
-                id="email"
                 color="gray"
                 size="lg"
                 type="email"
-                name="email"
+                name="id"
                 placeholder="Enter your email to begin:"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
                 onChange={handleInput}
+                value={user.id}
                 required
               />
             </div>
-            <Button color="gray" size="lg" className="mt-6" fullWidth>
+            <Button
+              onClick={selectedDashType}
+              type="submit"
+              disabled={user.id === ""}
+              color="gray"
+              size="lg"
+              className="mt-6"
+              fullWidth
+            >
               sign in
             </Button>
           </form>
