@@ -9,7 +9,9 @@ export default function Chat(patients, user) {
   return (
     <>
       <DeepChat
-        introMessage={{ text: "Send a chat message to an example server." }}
+        introMessage={{
+          text: "Talk with me to get more information about the dataset. E.g. what is the average age of the patients.",
+        }}
         request={{ url: "http://localhost:8000/chat" }}
         style={{ borderRadius: "10px", width: "900px", height: "600px" }}
         textInput={{ placeholder: { text: "Welcome to the demo!" } }}
