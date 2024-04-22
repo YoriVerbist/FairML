@@ -20,7 +20,7 @@ export default function AdjustVariable({
 
   return (
     <>
-      <div className="w-[370px] h-[300px] m-auto rounded space-y-4">
+      <div className="border-2 w-[370px] h-[300px] m-auto rounded space-y-4">
         <div className="">
           <h2 className="font-bold">Features</h2>
           <div className="overflow-auto h-[250px]">

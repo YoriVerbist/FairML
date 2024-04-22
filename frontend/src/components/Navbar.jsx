@@ -23,6 +23,9 @@ export default function StickyNavbar({ user }) {
             )}
           </Typography>
           <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
+            <Link to="/info">Data Information</Link>
+          </Typography>
+          <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
             {user.id === "" ? (
               <Link to="/">Manual Steering</Link>
             ) : (
