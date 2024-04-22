@@ -1,6 +1,7 @@
 import { Card, Typography, CardBody } from "@material-tailwind/react";
 
 import PatientDetailChart from "./PatientDetailChart";
+import Tooltip from "../Tooltip";
 
 const KEYS = [
   "id",
@@ -24,6 +25,10 @@ export default function PatientDetail({ patient, user }) {
       <>
         <Card className="flex flex-col h-full w-[900px] h-300 border-2 border-blue-gray-100">
           <div>
+            <Tooltip
+              title="Patients Details"
+              content="Here you can see the details of the patient you selected in the table. You also see the recurrence risk of the patient (the chance that the patient will develop a new tumor)."
+            />
             <Typography variant="h4" color="gray" className="mt-4 uppercase">
               Patient Details
             </Typography>

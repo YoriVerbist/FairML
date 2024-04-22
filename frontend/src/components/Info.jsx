@@ -135,7 +135,8 @@ function Info({ user }) {
                 href="https://www.thyroid.org/professionals/ata-professional-guidelines/"
                 target="_blank"
               >
-                ATA (American Thyroid Association) guidelines.
+                ATA (American Thyroid Association) guidelines. So, how dangerous
+                the initial cancer was.
               </a>
             </Typography>
           </CardBody>

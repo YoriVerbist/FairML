@@ -6,6 +6,8 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 
+import Tooltip from "../Tooltip.jsx";
+
 const PatientTable = ({ patients, onRowSelect, user }) => {
   const [selectedPatient, setSelectedPatient] = useState(null);
 
@@ -20,6 +22,10 @@ const PatientTable = ({ patients, onRowSelect, user }) => {
     <>
       <Card className="flex flex-col h-full w-[400px] max-h-[300px] border-2 border-blue-gray-100">
         <div>
+          <Tooltip
+            title="Patients Table"
+            content="You can select here a patient and see more details about the patient in the card to the right."
+          />
           <Typography variant="h4" color="gray" className="mt-4 uppercase">
             Patients
           </Typography>

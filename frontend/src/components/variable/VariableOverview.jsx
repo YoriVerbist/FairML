@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, Typography, CardBody } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
 import modelService from "../../services/imporances";
+import Tooltip from "../Tooltip";
 
 export default function VariableOverview({ patients, updateCount, user }) {
   const [importances, setImportances] = useState(null);
@@ -169,8 +170,12 @@ export default function VariableOverview({ patients, updateCount, user }) {
   };
   return (
     <>
-      <Card className="flex flex-col w-[900px] max-h-[400px] border-2 border-blue-gray-100 items-center h-screen">
+      <Card className="flex flex-col w-[900px] max-h-[400px] border-2 border-blue-gray-100  h-screen">
         <div>
+          <Tooltip
+            title="Data Overview"
+            content="Here you can see the how important each feature is when predicting if a specific patient will develop a new tumor. The higher the value, the more important the feature is."
+          />
           <Typography variant="h4" color="gray" className="mt-4 uppercase">
             Data Overview
           </Typography>
