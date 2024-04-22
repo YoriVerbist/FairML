@@ -1,32 +1,59 @@
 import { useState, useEffect } from "react";
 import StickyNavbar from "./components/Navbar";
 import { Typography, Input, Button } from "@material-tailwind/react";
-import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import userService from "./services/users";
 
-function Landing() {
-  const [user, setUser] = useState({
-    id: "",
-    username: "",
-    password: "",
-    group: "all",
-    language: "en",
-  });
-  const [passwordShown, setPasswordShown] = useState(false);
-  const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
+function Landing({ user, setUser }) {
+  const navigate = useNavigate();
+  useEffect(() => {
+    window.localStorage.setItem("userid", user.id);
+  }, [user.id]);
+  useEffect(() => {
+    window.localStorage.setItem("language", user.language);
+  }, [user.language]);
+  useEffect(() => {
+    window.localStorage.setItem("group", user.group);
+  }, [user.group]);
 
-  const handleSubmitEvent = (e) => {
-    e.preventDefault();
-    if (user.username !== "" && user.password !== "") {
-      //dispatch action from hooks
-    }
-    alert("please provide a valid input");
+  const selectedDashType = () => {
+    console.log(user);
+    axios
+      .post(
+        BASE_API + "/validateusers",
+        {
+          UserId: user.id,
+          Cohort: user.group,
+          Language: user.language,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, OPTIONS",
+            "Access-Control-Allow-Headers":
+              "X-Auth-Token, Origin, Authorization, X-Requested-With, Content-Type, Accept",
+          },
+        },
+      )
+      .then(function (response) {
+        //console.log(response.data);
+        if (response.data["StatusCode"]) {
+          navigate("/dashboard/" + user.cohort);
+        } else {
+          console.log("Error reported. Login failed.");
+          // TO-DO: Navigate to Error Screen.
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setUser((prev) => ({
-      ...prev,
+    setUser((prevState) => ({
+      ...prevState,
       [name]: value,
     }));
   };
@@ -40,9 +67,14 @@ function Landing() {
             Sign In
           </Typography>
           <Typography className="mb-16 text-gray-600 font-normal text-[18px]">
-            Enter your email and password to sign in
+            Enter your email to get started one.
           </Typography>
-          <form action="#" className="mx-auto max-w-[24rem] text-left">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+            className="mx-auto max-w-[24rem] text-left"
+          >
             <div className="mb-6">
               <label htmlFor="email">
                 <Typography
@@ -58,54 +90,15 @@ function Landing() {
                 size="lg"
                 type="email"
                 name="email"
-                placeholder="name@mail.com"
+                placeholder="Enter your email to begin:"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                labelProps={{
-                  className: "hidden",
-                }}
-              />
-            </div>
-            <div className="mb-6">
-              <label htmlFor="password">
-                <Typography
-                  variant="small"
-                  className="mb-2 block font-medium text-gray-900"
-                >
-                  Password
-                </Typography>
-              </label>
-              <Input
-                size="lg"
-                placeholder="********"
-                labelProps={{
-                  className: "hidden",
-                }}
-                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                type={passwordShown ? "text" : "password"}
-                icon={
-                  <i onClick={togglePasswordVisiblity}>
-                    {passwordShown ? (
-                      <EyeIcon className="h-5 w-5" />
-                    ) : (
-                      <EyeSlashIcon className="h-5 w-5" />
-                    )}
-                  </i>
-                }
+                onChange={handleInput}
+                required
               />
             </div>
             <Button color="gray" size="lg" className="mt-6" fullWidth>
               sign in
             </Button>
-            <Typography
-              variant="small"
-              color="gray"
-              className="mt-4 text-center font-normal"
-            >
-              Not registered?{" "}
-              <Link to="signup" className="font-medium text-gray-900">
-                Create account
-              </Link>
-            </Typography>
           </form>
         </div>
       </section>

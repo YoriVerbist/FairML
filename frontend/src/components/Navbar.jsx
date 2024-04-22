@@ -17,18 +17,11 @@ export default function StickyNavbar() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-x-1">
               <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <Link to="/">Sign In</Link>
-              </Button>
-              <Button
                 variant="gradient"
                 size="sm"
                 className="hidden lg:inline-block"
               >
-                <Link to="/signup">Sign Up</Link>
+                <Link to="/">Sign In</Link>
               </Button>
             </div>
           </div>
