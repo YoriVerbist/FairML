@@ -22,6 +22,20 @@ export default function StickyNavbar({ user }) {
               <Link to="/dashboard">FairML</Link>
             )}
           </Typography>
+          <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
+            {user.id === "" ? (
+              <Link to="/">Manual Steering</Link>
+            ) : (
+              <Link to="/dashboard">Manual Steering</Link>
+            )}
+          </Typography>
+          <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
+            {user.id === "" ? (
+              <Link to="/">Chatbot</Link>
+            ) : (
+              <Link to="/chatbot">Chatbot</Link>
+            )}
+          </Typography>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-x-1">
               <Button
