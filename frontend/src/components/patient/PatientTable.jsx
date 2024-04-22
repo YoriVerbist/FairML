@@ -6,7 +6,7 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 
-const PatientTable = ({ patients, onRowSelect }) => {
+const PatientTable = ({ patients, onRowSelect, user }) => {
   const [selectedPatient, setSelectedPatient] = useState(null);
 
   const handleRowClick = (patient) => {

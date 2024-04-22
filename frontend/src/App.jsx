@@ -22,10 +22,12 @@ function App() {
     {
       path: "dashboard",
       element: <Dashboard user={user} setUser={setUser} />,
+      errorElement: <ErrorPage />,
     },
     {
       path: "signup",
       element: <Signup />,
+      errorElement: <ErrorPage />,
     },
   ]);
 

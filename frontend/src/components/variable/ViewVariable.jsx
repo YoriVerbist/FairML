@@ -4,13 +4,21 @@ import { Card, Typography, CardBody } from "@material-tailwind/react";
 import VariableInfo from "./VariableInfo";
 import VariableBias from "./VariableBias";
 
-export default function ViewVariable({ patients }) {
+export default function ViewVariable({ patients, user }) {
   const [selectedValue, setSelectedValue] = useState("");
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);
     console.log(selectedValue);
   };
+
+  if (user.id === "") {
+    user = {
+      id: window.localStorage.getItem("userid"),
+      group: "all",
+      language: "en",
+    };
+  }
 
   return (
     <>

@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function StickyNavbar({ user }) {
+  if (user.id === "") {
+    user = {
+      id: window.localStorage.getItem("userid"),
+      group: "all",
+      language: "en",
+    };
+  }
   return (
     <div className="-m-6 max-h-[768px] w-[calc(100%+48px)] overflow-scroll">
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">

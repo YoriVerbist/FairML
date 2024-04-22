@@ -12,8 +12,17 @@ export default function VariableOverview({ patients, updateCount, user }) {
     (key) => !excludeKeys.includes(key),
   );
 
+  if (user.id === "") {
+    user = {
+      id: window.localStorage.getItem("userid"),
+      group: "all",
+      language: "en",
+    };
+  }
+
   useEffect(() => {
     console.log("Fetching importances...");
+    console.log("user", user);
     modelService.getAll(user).then((data) => {
       console.log("data", data);
       const features = [];

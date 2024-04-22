@@ -18,6 +18,7 @@ export default function AdjustVariable({
     <>
       <div className="">
         <Button
+          className="top-60"
           variant="filled"
           size="lg"
           color="red"

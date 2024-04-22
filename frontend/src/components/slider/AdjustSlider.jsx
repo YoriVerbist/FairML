@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, Typography, CardBody } from "@material-tailwind/react";
 import AdjustVariable from "./AdjustVariable";
 import ApplyAdjustments from "./ApplyAdjustments";
+import userService from "../../services/users";
 
 export default function AdjustSlider({ patients, updateCount, user }) {
   const excludeKeys = ["_id", "id", "Recurred"];
@@ -33,7 +34,7 @@ export default function AdjustSlider({ patients, updateCount, user }) {
               setCheckedItems={setCheckedItems}
               user={user}
             />
-            <div className="border-2 w-[370px] h-[300px] m-auto rounded">
+            <div className="w-[370px] h-[300px] m-auto rounded">
               <ApplyAdjustments
                 patients={patients}
                 changes={checkedItems}

@@ -24,6 +24,14 @@ function App({ user, setUser }) {
     return null;
   }
 
+  if (user.id === "") {
+    user = {
+      id: window.localStorage.getItem("userid"),
+      group: "all",
+      language: "en",
+    };
+  }
+
   const handleRowSelect = (patient) => {
     setSelectedPatient(patients.find((p) => p.id === patient));
     console.log("selectedPatient", selectedPatient);
@@ -33,11 +41,15 @@ function App({ user, setUser }) {
     <>
       <StickyNavbar user={user} />
       <div className="flex flex-row pt-20 gap-x-10">
-        <PatientTable patients={patients} onRowSelect={handleRowSelect} />
-        <PatientDetail patient={selectedPatient} />
+        <PatientTable
+          patients={patients}
+          onRowSelect={handleRowSelect}
+          user={user}
+        />
+        <PatientDetail patient={selectedPatient} user={user} />
       </div>
       <div className="flex flex-row pt-10 gap-x-10">
-        <ViewVariable patients={patients} />
+        <ViewVariable patients={patients} user={user} />
         <div className="flex flex-col  gap-y-10">
           <VariableOverview
             patients={patients}

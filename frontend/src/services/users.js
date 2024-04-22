@@ -3,7 +3,7 @@ const url = "http://127.0.0.1:8000/users/";
 
 const createUser = async (user) => {
   const request = axios.post(url, {
-    userId: user.id,
+    userid: user.id,
   });
   return request.then((response) => {
     response.data.StatusCode;

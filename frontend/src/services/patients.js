@@ -11,7 +11,8 @@ const getAll = async () => {
 
 const predictPatient = async (patientid, user) => {
   console.log(patientid);
-  const predictUrl = modelUrl + patientid + "?user_id" + user.id;
+  console.log(user.id);
+  const predictUrl = modelUrl + patientid + "?user_id=" + user.id;
   const request = axios.get(predictUrl);
   return request.then((response) => response.data.Payload);
 };
