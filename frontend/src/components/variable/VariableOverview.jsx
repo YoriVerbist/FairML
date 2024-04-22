@@ -5,16 +5,44 @@ import modelService from "../../services/imporances";
 
 export default function VariableOverview({ patients, updateCount }) {
   const [importances, setImportances] = useState(null);
+  const [features, setFeatures] = useState(null);
+
+  const excludeKeys = ["_id", "id", "Recurred"];
+  const filteredKeys = Object.keys(patients[0]).filter(
+    (key) => !excludeKeys.includes(key),
+  );
 
   useEffect(() => {
     console.log("Fetching importances...");
     modelService.getAll().then((data) => {
-      setImportances(
-        data.importances.map((sublist) =>
-          sublist.map(([firstValue, _]) => firstValue.toFixed(3)),
-        )[0],
-      );
+      console.log("data", data);
+      const features = [];
+      const importances = [];
+      if (data && data.features && data.importances) {
+        const featuresDict = data.features;
+        const importancesList = data.importances[0]; // Assuming only one list of importances
+
+        Object.entries(featuresDict).forEach(([feature, value], index) => {
+          // Check if the feature is marked as true
+          if (value === true) {
+            features.push(feature);
+
+            // Get the corresponding importance from the importances list if available
+            const importancePair = importancesList[index];
+            // If importancePair is defined, use the first value of the pair
+            const importance = importancePair
+              ? importancePair[0].toFixed(3)
+              : 0; // Use 0 if importancePair is undefined
+            importances.push(importance);
+          } else {
+            importances.push(0);
+          }
+        });
+      }
       console.log("importances", importances);
+      console.log("features", features);
+      setImportances(importances);
+      setFeatures(features);
     });
   }, [patients, updateCount]);
 
@@ -36,12 +64,7 @@ export default function VariableOverview({ patients, updateCount }) {
     );
   }
 
-  const excludeKeys = ["_id", "id", "Recurred"];
-  const filteredKeys = Object.keys(patients[0]).filter(
-    (key) => !excludeKeys.includes(key),
-  );
-
-  const dictionary = filteredKeys.reduce((acc, key, index) => {
+  const dictionary = features.reduce((acc, key, index) => {
     acc[key] = importances[index];
     return acc;
   }, {});
