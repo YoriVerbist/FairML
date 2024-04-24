@@ -24,12 +24,3 @@ class ValidateUserModel(BaseModel):
     UserId: str
     Cohort: str
     Language: str = "ENG"
-
-
-class FeaturesToInclude(BaseModel):
-    features_to_include: list[str] = settings["ALL_FEATURES"]
-
-
-class FeatureRanges(BaseModel):
-    features_to_include: list[str] = settings["ALL_FEATURES"]
-    features_ranges: list[tuple] = settings["DEFAULT_VALUES"]
