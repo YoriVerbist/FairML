@@ -26,7 +26,7 @@ export default function ViewVariable({ patients, user }) {
         <div>
           <Tooltip
             title="View Variables"
-            content="Here you can see more details about the variables of each feature, the recurrence rate that each variable of each feature has and the ocurrence in the dataset of each variable."
+            content="Here you can see more details about the variables of each feature, the recurrence rate that each variable of each feature has and the ocurrence in the dataset of each variable. The recurrence rate indicates the probability that a patient with the selected variable will develop a new tumor."
           />
           <Typography variant="h4" color="gray" className="mt-4 uppercase">
             View Variables

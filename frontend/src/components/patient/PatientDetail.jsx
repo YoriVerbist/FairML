@@ -94,7 +94,7 @@ export default function PatientDetail({ patient, user }) {
               <div className="w-1/3">{renderColumn(column1)}</div>
               <div className="w-1/3">{renderColumn(column2)}</div>
               <div className="w-1/3">{renderColumn(column3)}</div>
-              <div className="pb-2 grid place-items-center px-2">
+              <div className="pb-2 grid place-items-center px-2 mb-4">
                 <PatientDetailChart patient={patient} user={user} />
               </div>
             </div>

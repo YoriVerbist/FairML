@@ -22,7 +22,7 @@ export default function PatientDefaultChart({ patient, user }) {
   const chartConfig = {
     type: "pie",
     width: 200,
-    height: 200,
+    height: 180,
     series: [1 - pred, pred],
     options: {
       chart: {
@@ -46,12 +46,12 @@ export default function PatientDefaultChart({ patient, user }) {
 
   return (
     <>
-      <div>
+      <div className="mb-2">
         <Typography variant="h6" color="gray" className="mt-4">
           Recurrence rate
         </Typography>
+        <Chart {...chartConfig} />
       </div>
-      <Chart {...chartConfig} />
     </>
   );
 }
