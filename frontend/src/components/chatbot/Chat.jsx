@@ -10,7 +10,7 @@ export default function Chat(patients, user) {
     <>
       <DeepChat
         introMessage={{
-          text: "Talk with me to get more information about the dataset. E.g. what is the average age.",
+          text: "Talk with me to get more information about the dataset. E.g. What features are included in the data? Can you evaluate the model?",
         }}
         request={{ url: "http://localhost:8000/chat" }}
         style={{ borderRadius: "10px", width: "900px", height: "600px" }}
