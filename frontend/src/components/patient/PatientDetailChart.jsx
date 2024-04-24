@@ -18,12 +18,13 @@ export default function PatientDefaultChart({ patient, user }) {
   if (!prediction) return false;
 
   const pred = parseFloat(prediction.probabilities[0][0].toFixed(4));
+  const negPred = parseFloat(prediction.probabilities[0][1].toFixed(4));
 
   const chartConfig = {
     type: "pie",
     width: 200,
     height: 180,
-    series: [1 - pred, pred],
+    series: [negPred, pred],
     options: {
       chart: {
         toolbar: {
