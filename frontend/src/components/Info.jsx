@@ -14,7 +14,7 @@ function Info({ user }) {
     <>
       <StickyNavbar user={user} />
       <div className="flex flex-row pt-20 gap-x-10">
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Age
@@ -22,7 +22,7 @@ function Info({ user }) {
             <Typography>The age of the patient.</Typography>
           </CardBody>
         </Card>
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Gender
@@ -30,7 +30,7 @@ function Info({ user }) {
             <Typography>The gender of the patient.</Typography>
           </CardBody>
         </Card>
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Smoking
@@ -48,7 +48,7 @@ function Info({ user }) {
             <Typography>If the patient smoked in the past.</Typography>
           </CardBody>
         </Card>
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Hx Radiothreapy
@@ -59,7 +59,7 @@ function Info({ user }) {
             </Typography>
           </CardBody>
         </Card>
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Thyroid Function
@@ -78,7 +78,7 @@ function Info({ user }) {
         </Card>
       </div>
       <div className="flex flex-row pt-20 gap-x-10">
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Physical Examination
@@ -89,7 +89,7 @@ function Info({ user }) {
             </Typography>
           </CardBody>
         </Card>
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Adenopathy
@@ -100,7 +100,7 @@ function Info({ user }) {
             </Typography>
           </CardBody>
         </Card>
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Pathology
@@ -113,7 +113,7 @@ function Info({ user }) {
         </Card>
       </div>
       <div className="flex flex-row pt-20 gap-x-10">
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Focality
@@ -124,7 +124,7 @@ function Info({ user }) {
             </Typography>
           </CardBody>
         </Card>
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Risk
@@ -141,7 +141,7 @@ function Info({ user }) {
             </Typography>
           </CardBody>
         </Card>
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               T, N, M, Stage
@@ -166,7 +166,7 @@ function Info({ user }) {
         </Card>
       </div>
       <div className="flex flex-row pt-20 gap-x-10">
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Response
@@ -178,7 +178,7 @@ function Info({ user }) {
             </Typography>
           </CardBody>
         </Card>
-        <Card className="mt-6 w-96">
+        <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
               Recurred
