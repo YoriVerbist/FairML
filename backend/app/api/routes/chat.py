@@ -16,10 +16,9 @@ def get_user_input(input: dict) -> Any:
     """
     Retrieve users.
     """
-    # try:
-    #     response = answer_question(input)
-    # except:
-    #     response = {"output": "Something went wrong. Please try again."}
-    response = answer_question(input)
+    try:
+        response = answer_question(input)
+    except:
+        response = {"output": "Something went wrong. Please try again."}
     print(response)
     return {"text": response["output"]}
