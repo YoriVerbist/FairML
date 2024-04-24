@@ -16,10 +16,10 @@ def get_user_input(input: dict) -> Any:
     """
     Retrieve users.
     """
-    input["messages"][0]["text"] = (
-        input["messages"][0]["text"] + " using tool python_repl_ast"
-    )
-    print(input)
+    # try:
+    #     response = answer_question(input)
+    # except:
+    #     response = {"output": "Something went wrong. Please try again."}
     response = answer_question(input)
     print(response)
     return {"text": response["output"]}

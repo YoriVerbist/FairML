@@ -1,6 +1,8 @@
 import pandas as pd
+import os
 
 from app.core.config import settings
+from app.core.db import get_database
 
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
@@ -8,18 +10,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 import shap
 
-from langchain.agents.agent_types import AgentType
-from langchain_community.llms import Ollama
+from langchain import hub
+from langchain_core.tools import tool
+from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain_openai import ChatOpenAI
-from langchain_community.agent_toolkits import create_sql_agent
-from langchain_community.utilities import SQLDatabase
+
 
 from sqlalchemy import create_engine
 
-from app.core.db import get_database
-from app.core.config import settings
-
-import os
 
 os.environ["OPENAI_API_KEY"] = settings["OPENAPI_KEY"]
 
@@ -82,6 +80,9 @@ def load_testing_data(id=None, selected_features=None):
 
 
 def train_model(X_train, y_train):
+    """
+    Trains a SVM model with a training set
+    """
 
     model = SVC(kernel="linear", probability=True)
     # Train the model
@@ -143,6 +144,9 @@ def get_variable_importance(model, X_train, X_test, feature, id=0):
 
 
 def get_recurrence_rate(feature):
+    """
+    Calculates the cancer recurrence rate based on a specific feature
+    """
     df = pd.read_csv("../data/Thyroid_Diff.csv")
     df["Recurred"] = df["Recurred"].map({"Yes": 1, "No": 0})
     recurrence = df.groupby(feature)["Recurred"].mean()
@@ -249,14 +253,73 @@ def answer_question(user_input):
     """
     Gives the user input to the agent
     """
-    df = pd.read_csv("../data/Thyroid_Diff.csv")
-    engine = create_engine("sqlite:///data.db")
-    # df.to_sql("data", engine, index=False)
-    db = SQLDatabase(engine=engine)
 
+    tools = [
+        get_data_tool,
+        evaluate_model_tool,
+        get_feature_importances_tool,
+    ]
+    prompt = hub.pull("hwchase17/openai-tools-agent")
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
-    # llm = Ollama(model="llama2")
 
-    agent = create_sql_agent(llm, db=db, verbose=True)
-    response = agent.invoke({"input": user_input})
+    agent = create_openai_tools_agent(llm, tools, prompt)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+    response = agent_executor.invoke({"input": user_input})
     return response
+
+
+def load_data():
+    """
+    Loads model data
+    """
+    df = pd.read_csv("../data/Thyroid_Diff.csv")
+    df = transform_to_numerical(df)
+
+    X = df.drop("Recurred", axis="columns")
+    y = df["Recurred"]
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    return X_train, y_train, X_test, y_test
+
+
+@tool
+def get_data_tool():
+    """Loads the data into a pandas DataFrame"""
+    df = pd.read_csv("../data/Thyroid_Diff.csv")
+    return df
+
+
+@tool
+def evaluate_model_tool():
+    """
+    Evaluate the model on the test data and return the accuracy and the probabilities of
+    the predictions
+    """
+    X_train, y_train, X_test, y_test = load_data()
+    model = train_model(X_train, y_train)
+    # Predict on the test set
+    y_pred = model.predict(X_test)
+    # Calculate accuracy
+    accuracy = accuracy_score(y_test, y_pred)
+    # Get the probabilities of the predictions
+    probabilities = model.predict_proba(X_test)
+    return accuracy, probabilities, y_pred
+
+
+@tool
+def get_feature_importances_tool():
+    """
+    Calculates the feature importances of the dataset with shap
+    """
+    X_train, y_train, X_test, y_test = load_data()
+    model = train_model(X_train, y_train)
+    # Calculate permutation importance
+    explainer = shap.Explainer(model, X_train)
+
+    # Calculate SHAP values for the test set
+    shap_values = explainer(X_test.iloc[0:1])
+
+    return shap_values.values
