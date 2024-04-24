@@ -33,6 +33,7 @@ function Chatbot({ user, setUser }) {
   const handleRowSelect = (patient) => {
     setSelectedPatient(patients.find((p) => p.id === patient));
   };
+  console.log("user", user);
 
   return (
     <>
@@ -48,7 +49,7 @@ function Chatbot({ user, setUser }) {
       <div className="flex flex-row pt-10 gap-x-10">
         <ViewVariable patients={patients} user={user} />
         <div className="flex flex-col  gap-y-10">
-          <Chat />
+          <Chat patients={patients} user={user} />
         </div>
       </div>
     </>
