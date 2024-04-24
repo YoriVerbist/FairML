@@ -249,7 +249,7 @@ def save_interaction_data(config_data):
     )
 
 
-def answer_question(user_input):
+def answer_question(user_input, chat_history):
     """
     Gives the user input to the agent
     """
@@ -264,7 +264,9 @@ def answer_question(user_input):
 
     agent = create_openai_tools_agent(llm, tools, prompt)
     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-    response = agent_executor.invoke({"input": user_input})
+    response = agent_executor.invoke(
+        {"input": user_input, "chat_history": chat_history}
+    )
     return response
 
 
