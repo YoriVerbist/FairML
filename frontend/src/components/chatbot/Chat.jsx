@@ -14,7 +14,7 @@ export default function Chat(patients, user) {
         }}
         request={{ url: "http://localhost:8000/chat" }}
         style={{ borderRadius: "10px", width: "900px", height: "600px" }}
-        textInput={{ placeholder: { text: "Welcome to the demo!" } }}
+        textInput={{ placeholder: { text: "Ask me anything!" } }}
         responseInterceptor={(response) => {
           console.log("respone", response);
           return response;
