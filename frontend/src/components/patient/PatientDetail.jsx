@@ -81,6 +81,10 @@ export default function PatientDetail({ patient, user }) {
       <div>
         <Card className="flex flex-col h-full w-[900px]  max-h-[300px] border-2 border-blue-gray-100">
           <div>
+            <Tooltip
+              title="Patients Details"
+              content="Here you can see the details of the patient you selected in the table. You also see the recurrence risk of the patient (the chance that the patient will develop a new tumor)."
+            />
             <Typography variant="h4" color="gray" className="mt-4 uppercase">
               Patient Details
             </Typography>
