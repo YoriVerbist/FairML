@@ -30,15 +30,15 @@ export default function AdjustSlider({ patients, updateCount, user }) {
             Adjust Features
           </Typography>
         </div>
-        <CardBody className="px-0 flex flex-col space-y-4">
-          <div className="flex flex-row space-x-2">
+        <CardBody className="flex flex-row space-y-4">
+          <div className="flex flex-col space-y-4 w-[900px]">
             <AdjustVariable
               patients={patients}
               checkedItems={checkedItems}
               setCheckedItems={setCheckedItems}
               user={user}
             />
-            <div className="w-[370px] h-[300px] m-auto rounded">
+            <div className="m-auto rounded">
               <ApplyAdjustments
                 patients={patients}
                 changes={checkedItems}

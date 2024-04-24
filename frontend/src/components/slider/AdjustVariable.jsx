@@ -20,10 +20,10 @@ export default function AdjustVariable({
 
   return (
     <>
-      <div className="border-2 w-[370px] h-[300px] m-auto rounded space-y-4">
+      <div className=" w-[800px] h-[200px] m-auto rounded space-x-2">
         <div className="">
           <h2 className="font-bold">Features</h2>
-          <div className="overflow-auto h-[250px]">
+          <div className="overflow-auto h-[170px]">
             {filteredKeys.map((key, _) => (
               <div key={key} className="text-left">
                 <Checkbox

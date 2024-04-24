@@ -82,7 +82,7 @@ export default function VariableOverview({ patients, updateCount, user }) {
   const chartConfig = {
     type: "bar",
     height: 290,
-    width: 550,
+    width: 750,
     series: [
       {
         name: "Importance",
@@ -181,7 +181,7 @@ export default function VariableOverview({ patients, updateCount, user }) {
           </Typography>
         </div>
         <CardBody className="px-0 flex flex-col space-y-4">
-          <div className="border-2 w-[550px] h-[300px] m-auto rounded">
+          <div className="w-[750px] h-[300px] m-auto rounded">
             <Chart {...chartConfig} className="pb-32" />
           </div>
         </CardBody>

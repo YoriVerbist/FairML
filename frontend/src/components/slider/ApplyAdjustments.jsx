@@ -14,8 +14,7 @@ export default function AdjustVariable({
 
   return (
     <>
-      <div className="h-60"></div>
-      <div className="bottom-0">
+      <div className="w-[800px]">
         <Button
           variant="filled"
           size="lg"
