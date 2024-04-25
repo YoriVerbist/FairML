@@ -17,22 +17,22 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "FairMl/",
       element: <Landing user={user} setUser={setUser} />,
       errorElement: <ErrorPage />,
     },
     {
-      path: "dashboard",
+      path: "FairMl/dashboard",
       element: <Dashboard user={user} setUser={setUser} />,
       errorElement: <ErrorPage />,
     },
     {
-      path: "chatbot",
+      path: "FairMl/chatbot",
       element: <Chatbot user={user} setUser={setUser} />,
       errorElement: <ErrorPage />,
     },
     {
-      path: "info",
+      path: "FairMl/info",
       element: <Info user={user} setUser={setUser} />,
       errorElement: <ErrorPage />,
     },

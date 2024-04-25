@@ -1,6 +1,6 @@
 import axios from "axios";
-const patientsUrl = "http://127.0.0.1:8000/data/";
-const modelUrl = "http://127.0.0.1:8000/model/";
+const patientsUrl = "http://0.0.0.0/data/";
+const modelUrl = "http://0.0.0.0/model/";
 
 const getAll = async () => {
   const request = axios.get(patientsUrl);
