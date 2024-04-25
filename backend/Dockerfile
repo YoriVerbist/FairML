@@ -1,13 +1,19 @@
-FROM python:3.10
+# 
+FROM python:3.9
 
-COPY ./app /app
+# 
+WORKDIR /code
 
-WORKDIR /app
+# 
+COPY ./requirements.txt /code/requirements.txt
 
-RUN pip install -r requirements.txt
+# 
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-EXPOSE 8000
+# 
+COPY ./app /code/app
 
-ENTRYPOINT ["uvicorn"]
+COPY .env /code/.env
 
-CMD ["main:app", "--host", "0.0.0.0"]
+# 
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
