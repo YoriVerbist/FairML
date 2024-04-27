@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "http://0.0.0.0/users/";
+const url = "http://127.0.0.1:8000/users/";
 
 const createUser = async (user) => {
   const request = axios.post(url, {

@@ -24,31 +24,8 @@ export default function VariableOverview({ patients, updateCount, user }) {
   useEffect(() => {
     console.log("Fetching importances...");
     modelService.getAll(user).then((data) => {
-      const features = [];
-      const importances = [];
-      if (data && data.features && data.importances) {
-        const featuresDict = data.features;
-        const importancesList = data.importances[0]; // Assuming only one list of importances
-
-        Object.entries(featuresDict).forEach(([feature, value], index) => {
-          // Check if the feature is marked as true
-          if (value === true) {
-            features.push(feature);
-
-            // Get the corresponding importance from the importances list if available
-            const importancePair = importancesList[index];
-            // If importancePair is defined, use the first value of the pair
-            const importance = importancePair
-              ? importancePair[0].toFixed(3)
-              : 0; // Use 0 if importancePair is undefined
-            importances.push(importance);
-          } else {
-            importances.push(0);
-          }
-        });
-      }
-      setImportances(importances);
-      setFeatures(features);
+      setImportances(data.importances.map(([a, _]) => a.toFixed(3)));
+      setFeatures(data.features);
     });
   }, [patients, updateCount]);
 
@@ -74,10 +51,11 @@ export default function VariableOverview({ patients, updateCount, user }) {
     acc[key] = importances[index];
     return acc;
   }, {});
-
+  console.log("dict", dictionary);
   const sortedDictionary = Object.fromEntries(
     Object.entries(dictionary).sort(([, a], [, b]) => b - a),
   );
+  console.log("sorted dict", sortedDictionary);
 
   const chartConfig = {
     type: "bar",
