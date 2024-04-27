@@ -92,11 +92,16 @@ def get_importances(user_id: str = "0") -> Any:
     X_test, _ = load_testing_data(selected_features=FEATURES)
     model = train_model(X_train, y_train)
 
-    importances = get_feature_importances(model.predict_proba, X_train, X_test)
+    importances, feature_names = get_feature_importances(
+        model.predict_proba, X_train, X_test
+    )
     response = {
         "StatusCode": 1,
         "StatusMessage": "Success",
-        "Payload": {"importances": importances.tolist(), "features": FEATURES},
+        "Payload": {
+            "importances": importances.tolist(),
+            "features": feature_names.tolist(),
+        },
     }
     return response
 

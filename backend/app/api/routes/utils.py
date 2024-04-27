@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import os
 
 from app.core.config import settings
@@ -118,9 +119,12 @@ def get_feature_importances(model, X_train, X_test, id=0):
     explainer = shap.Explainer(model, X_train)
 
     # Calculate SHAP values for the test set
-    shap_values = explainer(X_test.iloc[id : id + 1])
+    shap_values = explainer(X_test)
+    vals = np.abs(shap_values.values).mean(0)
+    vals /= sum(vals)
+    feature_names = X_test.columns
 
-    return shap_values.values
+    return vals, feature_names
 
 
 def get_variable_importance(model, X_train, X_test, feature, id=0):
