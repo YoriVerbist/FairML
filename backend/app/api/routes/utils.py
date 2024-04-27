@@ -274,14 +274,18 @@ def answer_question(user_input, chat_history):
     return response
 
 
-def load_data():
+def load_data(removed_features: list = []):
     """
     Loads model data
+
+    Argument removed_features can be used to give a list, the features in this list
+    will be excluded from the dataset
     """
     df = pd.read_csv("../data/Thyroid_Diff.csv")
     df = transform_to_numerical(df)
 
     X = df.drop("Recurred", axis="columns")
+    X = X.drop(removed_features, axis="columns")
     y = df["Recurred"]
 
     X_train, X_test, y_train, y_test = train_test_split(
@@ -299,12 +303,14 @@ def get_data_tool():
 
 
 @tool
-def evaluate_model_tool():
+def evaluate_model_tool(removed_features: list = []):
     """
     Evaluate the model on the test data and return the accuracy and the probabilities of
     the predictions
+    Argument removed_features can be used to give a list, the features in this list
+    will be excluded from the dataset
     """
-    X_train, y_train, X_test, y_test = load_data()
+    X_train, y_train, X_test, y_test = load_data(removed_features)
     model = train_model(X_train, y_train)
     # Predict on the test set
     y_pred = model.predict(X_test)
@@ -316,16 +322,24 @@ def evaluate_model_tool():
 
 
 @tool
-def get_feature_importances_tool():
+def get_feature_importances_tool(removed_features: list = []):
     """
     Calculates the feature importances of the dataset with shap
+    and returns them in percentage form with also the corresonding feature names
+
+    The removed_features argument can be used to calculate the feature values of
+    while excluding the given list
     """
-    X_train, y_train, X_test, y_test = load_data()
+    X_train, y_train, X_test, y_test = load_data(removed_features)
     model = train_model(X_train, y_train)
     # Calculate permutation importance
     explainer = shap.Explainer(model, X_train)
 
     # Calculate SHAP values for the test set
-    shap_values = explainer(X_test.iloc[0:1])
+    shap_values = explainer(X_test)
+    vals = np.abs(shap_values.values).mean(0)
+    vals /= sum(vals)
+    print(vals)
+    feature_names = X_test.columns
 
-    return shap_values.values
+    return vals, feature_names
