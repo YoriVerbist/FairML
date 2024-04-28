@@ -46,13 +46,12 @@ export default function VariableOverview({ patients, updateCount, user }) {
     acc[key] = importances[index];
     return acc;
   }, {});
-  console.log("dict", dictionary);
+
   const sortedDictionary = Object.fromEntries(
     Object.entries(dictionary)
       .sort(([, a], [, b]) => b - a)
       .map(([key, value]) => [key, (value * 100).toFixed(1) + "%"]),
   );
-  console.log("sorted dict", sortedDictionary);
 
   const chartConfig = {
     type: "bar",
