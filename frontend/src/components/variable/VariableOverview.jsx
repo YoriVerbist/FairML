@@ -8,11 +8,6 @@ export default function VariableOverview({ patients, updateCount, user }) {
   const [importances, setImportances] = useState(null);
   const [features, setFeatures] = useState(null);
 
-  const excludeKeys = ["_id", "id", "Recurred"];
-  const filteredKeys = Object.keys(patients[0]).filter(
-    (key) => !excludeKeys.includes(key),
-  );
-
   if (user.id === "") {
     user = {
       id: window.localStorage.getItem("userid"),
@@ -53,7 +48,9 @@ export default function VariableOverview({ patients, updateCount, user }) {
   }, {});
   console.log("dict", dictionary);
   const sortedDictionary = Object.fromEntries(
-    Object.entries(dictionary).sort(([, a], [, b]) => b - a),
+    Object.entries(dictionary)
+      .sort(([, a], [, b]) => b - a)
+      .map(([key, value]) => [key, (value * 100).toFixed(1) + "%"]),
   );
   console.log("sorted dict", sortedDictionary);
 
@@ -121,7 +118,7 @@ export default function VariableOverview({ patients, updateCount, user }) {
           },
         },
         title: {
-          text: "Importance",
+          text: "Importance (%)",
         },
       },
       grid: {
