@@ -51,7 +51,7 @@ def get_model(user_id: str = "0") -> Any:
         "StatusCode": 1,
         "StatusMessage": "Success",
         "Payload": {
-            "acuracy": accuracy,
+            "accuracy": accuracy,
             "probabilities": probabilities.tolist(),
             "y_pred": y_pred.tolist(),
         },
@@ -102,25 +102,6 @@ def get_importances(user_id: str = "0") -> Any:
             "importances": importances.tolist(),
             "features": feature_names.tolist(),
         },
-    }
-    return response
-
-
-@router.get("/importances/{id}", response_model=OutputwithPayloadDataModel)
-def get_importances_id(id: int, user_id: str = "0") -> Any:
-    """
-    Retrieve the importances of the features.
-    """
-    _, FEATURES = fetch_user_details(user_id)
-    X_train, y_train = load_training_data(selected_features=FEATURES)
-    X_test, _ = load_testing_data(selected_features=FEATURES)
-    model = train_model(X_train, y_train)
-
-    importances = get_feature_importances(model.predict_proba, X_train, X_test, id)
-    response = {
-        "StatusCode": 1,
-        "StatusMessage": "Success",
-        "Payload": {"importances": importances.tolist()},
     }
     return response
 
