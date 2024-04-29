@@ -4,7 +4,12 @@ import Chart from "react-apexcharts";
 import modelService from "../../services/imporances";
 import Tooltip from "../Tooltip";
 
-export default function ModelOverview({ patient, updateCount, user }) {
+export default function ModelOverview({
+  patients,
+  patient,
+  updateCount,
+  user,
+}) {
   const [accuracy, setAccuracy] = useState(null);
 
   if (user.id === "") {
@@ -16,12 +21,12 @@ export default function ModelOverview({ patient, updateCount, user }) {
   }
 
   useEffect(() => {
-    console.log("Fetching importances...");
+    console.log("Fetching model data...");
     modelService.getModel(user).then((data) => {
-      console.log(data);
       setAccuracy(data.accuracy);
+      console.log(accuracy);
     });
-  }, [patient, updateCount]);
+  }, [patient, updateCount, patients, user]);
 
   const chartConfig = {
     type: "donut",
@@ -35,18 +40,37 @@ export default function ModelOverview({ patient, updateCount, user }) {
         },
       },
       title: {
-        show: "",
+        show: "Model accuracy",
       },
       dataLabels: {
         enabled: true,
       },
-      colors: ["#F63C3C", "#23B90B"],
+      colors: ["#23B90B", "#F63C3C"],
       legend: {
         show: false,
       },
-      labels: ["Accuracy", "No Recurrence"],
+      labels: ["Accuracy", "Not Accurate"],
     },
   };
+
+  const KEYS = [
+    "Gender",
+    "Age",
+    "Smoking",
+    "Hx Smoking",
+    "Hx Radiothreapy",
+    "Thyroid Function",
+    "Physical Examination",
+    "Adenopathy",
+    "Pathology",
+    "Focality",
+    "Risk",
+    "T",
+    "N",
+    "M",
+    "Stage",
+    "Response",
+  ];
 
   return (
     <>
@@ -61,7 +85,43 @@ export default function ModelOverview({ patient, updateCount, user }) {
           </Typography>
         </div>
         <CardBody className="px-0 flex flex-col space-y-4 items-center">
-          <Chart {...chartConfig} />
+          <div className="flex flex-row">
+            <Chart {...chartConfig} />
+            <div className="mx-4">
+              <Typography variant="h6" color="gray" className="mt-4 uppercase">
+                Items in dataset
+              </Typography>
+              <p>{patients.length}</p>
+              <Typography variant="h6" color="gray" className="mt-4 uppercase">
+                Number of features
+              </Typography>
+              <p>{KEYS.length}</p>
+            </div>
+            <div className="text-left">
+              <Typography variant="h6" color="gray" className="mt-4 uppercase">
+                Features
+              </Typography>
+              <ul>
+                {KEYS.slice(0, 5).map((val) => (
+                  <li className="text-gray-500">{val}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="text-left mt-4 mx-4">
+              <ul>
+                {KEYS.slice(5, 11).map((val) => (
+                  <li className="text-gray-500">{val}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="text-left mt-4 mx-4">
+              <ul>
+                {KEYS.slice(11, 18).map((val) => (
+                  <li className="text-gray-500">{val}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </CardBody>
       </Card>
     </>

@@ -25,4 +25,10 @@ const getRecurrence = async (feature) => {
   return request.then((response) => response.data.Payload.recurrence_rates);
 };
 
-export default { getModel, getAll, predictFeature, getRecurrence };
+const getFeatures = async (user) => {
+  const predictUrl = modelUrl + "features/?user_id=" + user.id;
+  const request = axios.get(predictUrl);
+  return request.then((response) => response.data.Payload);
+};
+
+export default { getModel, getAll, predictFeature, getRecurrence, getFeatures };

@@ -49,6 +49,7 @@ function App({ user, setUser }) {
         <div className="flex flex-col  gap-y-10">
           <PatientDetail patient={selectedPatient} user={user} />
           <ModelOverview
+            patients={patients}
             patient={selectedPatient}
             updateCount={updateCount}
             user={user}

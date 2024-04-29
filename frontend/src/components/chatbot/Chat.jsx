@@ -1,6 +1,6 @@
 import { DeepChat } from "deep-chat-react";
 
-export default function Chat({ patients, user }) {
+export default function Chat({ patients, user, setUpdateCount }) {
   return (
     <>
       <DeepChat
