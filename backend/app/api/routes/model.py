@@ -165,3 +165,19 @@ def change_features(payload: dict) -> Any:
         },
     }
     return response
+
+
+@router.get("/features/", response_model=OutputwithPayloadDataModel)
+def get_features(user_id: str = "0") -> Any:
+    """
+    Retrieve the importances of the features.
+    """
+    _, FEATURES = fetch_user_details(user_id)
+    response = {
+        "StatusCode": 1,
+        "StatusMessage": "Success",
+        "Payload": {
+            "features": FEATURES,
+        },
+    }
+    return response
