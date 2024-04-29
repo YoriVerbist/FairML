@@ -3,6 +3,7 @@ import "./App.css";
 import patientService from "./services/patients";
 import StickyNavbar from "./components/Navbar";
 import PatientTable from "./components/patient/PatientTable";
+import ModelOverview from "./components/model/ModelOverview";
 import PatientDetail from "./components/patient/PatientDetail";
 import ViewVariable from "./components/variable/ViewVariable";
 import VariableOverview from "./components/variable/VariableOverview";
@@ -45,7 +46,14 @@ function App({ user, setUser }) {
           onRowSelect={handleRowSelect}
           user={user}
         />
-        <PatientDetail patient={selectedPatient} user={user} />
+        <div className="flex flex-col  gap-y-10">
+          <PatientDetail patient={selectedPatient} user={user} />
+          <ModelOverview
+            patient={selectedPatient}
+            updateCount={updateCount}
+            user={user}
+          />
+        </div>
       </div>
       <div className="flex flex-row pt-10 gap-x-10">
         <ViewVariable patients={patients} user={user} />

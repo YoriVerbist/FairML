@@ -48,7 +48,7 @@ export default function PatientDefaultChart({ patient, user }) {
   return (
     <>
       <div className="mb-2">
-        <Typography variant="h6" color="gray" className="mt-4">
+        <Typography variant="h6" color="gray" className="mt-0">
           Recurrence rate
         </Typography>
         <Chart {...chartConfig} />

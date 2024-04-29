@@ -89,7 +89,7 @@ export default function PatientDetail({ patient, user }) {
               Patient Details
             </Typography>
           </div>
-          <CardBody>
+          <CardBody className="">
             <div className="flex">
               <div className="w-1/3">{renderColumn(column1)}</div>
               <div className="w-1/3">{renderColumn(column2)}</div>
