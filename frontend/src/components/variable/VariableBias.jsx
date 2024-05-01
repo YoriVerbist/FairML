@@ -14,11 +14,17 @@ export default function VariableBias({ patients, selectedValue }) {
 
   const uniqueValues = Object.keys(occurrenceCount).sort();
 
-  // Sort the occurrenceCount object based on the keys (unique values)
-  const sortedOccurrenceCount = {};
+  const representationBias = {};
   uniqueValues.forEach((value) => {
-    sortedOccurrenceCount[value] = occurrenceCount[value];
+    console.log(occurrenceCount[value]);
+    representationBias[value] = (
+      (occurrenceCount[value] / Math.max(...Object.values(occurrenceCount))) *
+      100
+    ).toFixed(1);
   });
+
+  console.log("test", Object.values(occurrenceCount));
+  console.log("representationBias", representationBias);
 
   const chartConfig = {
     type: "bar",
@@ -26,7 +32,7 @@ export default function VariableBias({ patients, selectedValue }) {
     series: [
       {
         name: "Occurrences",
-        data: [...Object.values(sortedOccurrenceCount)],
+        data: [...Object.values(representationBias)],
       },
     ],
     options: {
@@ -36,7 +42,7 @@ export default function VariableBias({ patients, selectedValue }) {
         },
       },
       title: {
-        text: "Variable Counts",
+        text: "Represenation Bias",
       },
       dataLabels: {
         enabled: false,
@@ -66,11 +72,11 @@ export default function VariableBias({ patients, selectedValue }) {
             fontWeight: 400,
           },
         },
-        categories: uniqueValues,
+        categories: [...Object.keys(representationBias)],
       },
       yaxis: {
         title: {
-          text: "Count",
+          text: "Bias (%)",
         },
         labels: {
           style: {

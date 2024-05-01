@@ -8,6 +8,7 @@ export default function Chat({ patients, user, setUpdateCount }) {
       .getElementById("text-input")
       .classList.remove("text-input-placeholder");
     document.getElementById("text-input").textContent = text;
+    console.log(document.getElementById("text-input"));
   };
 
   return (
