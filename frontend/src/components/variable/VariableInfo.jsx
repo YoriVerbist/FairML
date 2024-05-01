@@ -26,7 +26,11 @@ export default function VariableInfo({
   return (
     <>
       <div className="w-80 m-auto">
-        <Select label="Select Variable" onChange={onSelectChange}>
+        <Select
+          label="Select Variable"
+          value={selectedValue}
+          onChange={onSelectChange}
+        >
           {filteredKeys.map((key, index) => {
             return (
               <Option key={index} value={key} className="text-center">

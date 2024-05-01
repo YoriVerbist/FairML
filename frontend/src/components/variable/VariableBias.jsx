@@ -31,7 +31,7 @@ export default function VariableBias({ patients, selectedValue }) {
     height: 300,
     series: [
       {
-        name: "Occurrences",
+        name: "bias (%)",
         data: [...Object.values(representationBias)],
       },
     ],

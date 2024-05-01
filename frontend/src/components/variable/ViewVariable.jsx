@@ -6,7 +6,7 @@ import VariableBias from "./VariableBias";
 import Tooltip from "../Tooltip";
 
 export default function ViewVariable({ patients, user }) {
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("Response");
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);
@@ -26,7 +26,7 @@ export default function ViewVariable({ patients, user }) {
         <div>
           <Tooltip
             title="View Variables"
-            content="Here you can see more details about the variables of each feature, the recurrence rate that each variable of each feature has and the ocurrence in the dataset of each variable. The recurrence rate indicates the probability that a patient with the selected variable will develop a new tumor. A low occurence of a variable compared to other variables can indicate a bias in the dataset."
+            content="Here you can see more details about the variables of each feature. The recurrence rate indicates the probability that a patient with the selected variable will develop a new tumor."
           />
           <Typography variant="h4" color="gray" className="mt-4 uppercase">
             View Variables
@@ -40,6 +40,10 @@ export default function ViewVariable({ patients, user }) {
             patients={patients}
             selectedValue={selectedValue}
             onSelectChange={handleSelectChange}
+          />
+          <Tooltip
+            title="Variable Bias"
+            content="Here you can see the representation bias of each variable."
           />
           <Typography variant="h6" color="gray">
             Variable Bias
