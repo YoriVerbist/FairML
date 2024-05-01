@@ -53,9 +53,15 @@ export default function VariableInfo({
               {Object.entries(recurrenceRate).map(([key, value]) => (
                 <tr key={key} className="flex w-full mb-2">
                   <td className="w-1/2">{key}</td>
-                  <td className="w-1/2">
-                    {Math.floor(value.toFixed(3) * 100) + "%"}
-                  </td>
+                  {value < 0.7 ? (
+                    <td className="w-1/2">
+                      {Math.floor(value.toFixed(3) * 100) + "%"}
+                    </td>
+                  ) : (
+                    <td className="w-1/2 text-red-600 font-bold">
+                      {Math.floor(value.toFixed(3) * 100) + "%"}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
