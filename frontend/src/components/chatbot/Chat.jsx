@@ -13,43 +13,9 @@ export default function Chat({ patients, user, setUpdateCount }) {
 
   return (
     <>
-      {/* <div className="flex flex-col pt-10 gap-x-10 gap-y-4"> */}
-      {/*   <div className="flex flex-row gap-x-6 w-[900px]"> */}
-      {/*     <Button */}
-      {/*       variant="filled" */}
-      {/*       size="lg" */}
-      {/*       color="blue" */}
-      {/*       fullWidth */}
-      {/*       onClick={() => */}
-      {/*         handleClick("What features are included in the data?") */}
-      {/*       } */}
-      {/*     > */}
-      {/*       Ask: What features are included in the data? */}
-      {/*     </Button> */}
-      {/*     <Button */}
-      {/*       variant="filled" */}
-      {/*       size="lg" */}
-      {/*       color="blue" */}
-      {/*       fullWidth */}
-      {/*       onClick={() => handleClick("Can you evaluate the model?")} */}
-      {/*     > */}
-      {/*       Ask: Can you evaluate the model? */}
-      {/*     </Button> */}
-      {/*     <Button */}
-      {/*       variant="filled" */}
-      {/*       size="lg" */}
-      {/*       color="blue" */}
-      {/*       fullWidth */}
-      {/*       onClick={() => */}
-      {/*         handleClick("Can you caculate the feature importances?") */}
-      {/*       } */}
-      {/*     > */}
-      {/*       Ask: Can you calculate the feature importances? */}
-      {/*     </Button> */}
-      {/*   </div> */}
       <DeepChat
         introMessage={{
-          text: "Talk with me to get more information about the dataset. E.g. What features are included in the data? Can you evaluate the model? Can you calculate the feature importances?",
+          html: "<p>Talk with me to get more information about the dataset.</p><br> <p>E.g. What features are included in the data?</p> <p> Can you evaluate the model?</p> <p> Can you calculate the feature importances?</p>",
         }}
         request={{ url: "http://localhost:8000/chat" }}
         requestInterceptor={(details) => {
@@ -66,7 +32,6 @@ export default function Chat({ patients, user, setUpdateCount }) {
           return response;
         }}
       />
-      {/* </div> */}
     </>
   );
 }
