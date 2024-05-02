@@ -39,7 +39,7 @@ function App({ user, setUser }) {
 
   return (
     <>
-      <StickyNavbar user={user} />
+      <StickyNavbar user={user} setUser={setUser} />
       <div className="flex flex-row pt-20 gap-x-10">
         <PatientTable
           patients={patients}

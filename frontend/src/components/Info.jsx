@@ -1,18 +1,11 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Button,
-} from "@material-tailwind/react";
+import { Card, CardBody, Typography } from "@material-tailwind/react";
 
 import StickyNavbar from "./Navbar";
 
-function Info({ user }) {
+function Info({ user, setUser }) {
   return (
     <>
-      <StickyNavbar user={user} />
+      <StickyNavbar user={user} setUser={setUser} />
       <div className="flex flex-row pt-20 gap-x-10">
         <Card className="border-2 mt-6 w-96">
           <CardBody>

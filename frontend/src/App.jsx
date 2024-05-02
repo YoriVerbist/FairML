@@ -6,7 +6,6 @@ import Chatbot from "./Chatbot.jsx";
 import Info from "./components/Info.jsx";
 import Landing from "./Landing.jsx";
 import ErrorPage from "./error-page";
-import Signup from "./Signup.jsx";
 
 function App() {
   const [user, setUser] = useState({

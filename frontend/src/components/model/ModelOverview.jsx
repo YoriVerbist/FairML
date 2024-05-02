@@ -24,7 +24,6 @@ export default function ModelOverview({
     console.log("Fetching model data...");
     modelService.getModel(user).then((data) => {
       setAccuracy(data.accuracy);
-      console.log("acc", accuracy);
     });
   }, [patient, updateCount, patients, user]);
 
