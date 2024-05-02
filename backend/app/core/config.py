@@ -5,7 +5,7 @@ from dotenv import dotenv_values
 
 config = {
     "MODEL_DATA": "model_data",
-    "MODEL_DATA_PATH": "../data/Thyroid_Diff.csv",
+    "MODEL_DATA_PATH": "./data/Thyroid_Diff.csv",
     "USER_COLLECTION": "user_data",
     "DBNAME": "FairML-backend",
     "PROJECT_NAME": "FariML",

@@ -28,7 +28,7 @@ def load_training_data(id=None, filters=None, selected_features=None):
     """
     Loads training data
     """
-    df = pd.read_csv("../data/Thyroid_Diff.csv")
+    df = pd.read_csv("./data/Thyroid_Diff.csv")
 
     if id:
         df = df.drop(id)
@@ -55,7 +55,7 @@ def load_testing_data(id=None, selected_features=None):
     """
     Loads test data
     """
-    df = pd.read_csv("../data/Thyroid_Diff.csv")
+    df = pd.read_csv("./data/Thyroid_Diff.csv")
 
     if selected_features:
         selected_features = [
@@ -152,7 +152,7 @@ def get_recurrence_rate(feature):
     """
     Calculates the cancer recurrence rate based on a specific feature
     """
-    df = pd.read_csv("../data/Thyroid_Diff.csv")
+    df = pd.read_csv("./data/Thyroid_Diff.csv")
     df["Recurred"] = df["Recurred"].map({"Yes": 1, "No": 0})
     recurrence = df.groupby(feature)["Recurred"].mean()
     recurrence = dict(zip(recurrence.index, recurrence.values))
@@ -282,7 +282,7 @@ def load_data(removed_features: list = []):
     Argument removed_features can be used to give a list, the features in this list
     will be excluded from the dataset
     """
-    df = pd.read_csv("../data/Thyroid_Diff.csv")
+    df = pd.read_csv("./data/Thyroid_Diff.csv")
     df = transform_to_numerical(df)
     for i, val in enumerate(removed_features):
         removed_features[i] = removed_features[i].title()
@@ -301,7 +301,7 @@ def load_data(removed_features: list = []):
 @tool
 def get_data_tool():
     """Loads the data into a pandas DataFrame"""
-    df = pd.read_csv("../data/Thyroid_Diff.csv")
+    df = pd.read_csv("./data/Thyroid_Diff.csv")
     return df
 
 
