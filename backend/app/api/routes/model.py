@@ -21,7 +21,7 @@ FEATURES = {
     "Gender": True,
     "Smoking": True,
     "History Smoking": True,
-    "History Radiothreapy": True,
+    "History Radiotherapy": True,
     "Thyroid Function": True,
     "Physical Examination": True,
     "Adenopathy": True,

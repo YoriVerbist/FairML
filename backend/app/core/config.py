@@ -17,7 +17,7 @@ config = {
         "Gender",
         "Smoking",
         "History Smoking",
-        "Hisotry Radiothreapy",
+        "Hisotry Radiotherapy",
         "Thyroid Function",
         "Physical Examination",
         "Adenopathy",
