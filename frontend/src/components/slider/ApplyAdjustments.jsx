@@ -18,7 +18,7 @@ export default function AdjustVariable({
         <Button
           variant="filled"
           size="lg"
-          color="red"
+          color="blue"
           fullWidth
           onClick={() => handleClick(changes)}
         >

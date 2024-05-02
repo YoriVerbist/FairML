@@ -1,6 +1,6 @@
 import { Tooltip, Typography, Button } from "@material-tailwind/react";
 
-function CustomTooltip({ title, content }) {
+function CustomTooltip({ title, content, content2 }) {
   return (
     <>
       <Tooltip
@@ -15,6 +15,8 @@ function CustomTooltip({ title, content }) {
               className="font-normal opacity-80"
             >
               {content}
+              <br />
+              {content2}
             </Typography>
           </div>
         }

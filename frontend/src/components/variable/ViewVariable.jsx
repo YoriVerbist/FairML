@@ -43,7 +43,10 @@ export default function ViewVariable({ patients, user }) {
           />
           <Tooltip
             title="Variable Bias"
-            content="Here you can see the representation bias of each variable."
+            content="Here you can see the representation bias of each variable. What is representation bias?"
+            content2={
+              "Representation bias is a mental shortcut we use when we make decisions or judgments. It’s when we think something is more likely if it closely resembles what we typically expect."
+            }
           />
           <Typography variant="h6" color="gray">
             Variable Bias
