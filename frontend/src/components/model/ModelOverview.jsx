@@ -28,11 +28,14 @@ export default function ModelOverview({
     });
   }, [patient, updateCount, patients, user]);
 
+  const acc = parseFloat(accuracy.toFixed(4));
+  const negAcc = parseFloat((1 - accuracy).toFixed(4));
+
   const chartConfig = {
     type: "donut",
     width: 200,
     height: 180,
-    series: [accuracy, 1 - accuracy],
+    series: [acc, negAcc],
     options: {
       chart: {
         toolbar: {
@@ -57,24 +60,24 @@ export default function ModelOverview({
     "Gender",
     "Age",
     "Smoking",
-    "Hx Smoking",
-    "Hx Radiothreapy",
+    "History Smoking",
+    "History Radiothreapy",
     "Thyroid Function",
     "Physical Examination",
     "Adenopathy",
     "Pathology",
     "Focality",
     "Risk",
-    "T",
-    "N",
-    "M",
+    "Size Of Original Tumor",
+    "Nearby Lymph Nodes",
+    "Distant Metastasis",
     "Stage",
     "Response",
   ];
 
   return (
     <>
-      <Card className="flex flex-col w-[900px] max-h-[270px] border-2 border-blue-gray-100  h-screen">
+      <Card className="flex flex-col w-[900px] max-h-[300px] border-2 border-blue-gray-100  h-screen">
         <div>
           <Tooltip
             title="Overall Model Accuracy"
@@ -103,21 +106,21 @@ export default function ModelOverview({
               </Typography>
               <ul>
                 {KEYS.slice(0, 5).map((val) => (
-                  <li className="text-gray-500">{val}</li>
+                  <li className="text-gray-500">- {val}</li>
                 ))}
               </ul>
             </div>
             <div className="text-left mt-4 mx-4">
               <ul>
                 {KEYS.slice(5, 11).map((val) => (
-                  <li className="text-gray-500">{val}</li>
+                  <li className="text-gray-500">- {val}</li>
                 ))}
               </ul>
             </div>
             <div className="text-left mt-4 mx-4">
               <ul>
                 {KEYS.slice(11, 18).map((val) => (
-                  <li className="text-gray-500">{val}</li>
+                  <li className="text-gray-500">- {val}</li>
                 ))}
               </ul>
             </div>

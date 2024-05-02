@@ -20,7 +20,7 @@ const PatientTable = ({ patients, onRowSelect, user }) => {
 
   return (
     <>
-      <Card className="flex flex-col h-full w-[400px] max-h-[610px] border-2 border-blue-gray-100">
+      <Card className="flex flex-col h-full w-[400px] max-h-[640px] border-2 border-blue-gray-100">
         <div>
           <Tooltip
             title="Patients Table"
