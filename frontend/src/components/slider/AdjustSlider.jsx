@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, Typography, CardBody } from "@material-tailwind/react";
 import AdjustVariable from "./AdjustVariable";
 import ApplyAdjustments from "./ApplyAdjustments";

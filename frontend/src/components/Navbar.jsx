@@ -1,7 +1,6 @@
 import React from "react";
 import { Navbar, Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 export default function StickyNavbar({ user, setUser }) {
   if (user.id === "") {

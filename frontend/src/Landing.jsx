@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import StickyNavbar from "./components/Navbar";
 import { Typography, Input, Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
