@@ -16,15 +16,11 @@ export default function VariableBias({ patients, selectedValue }) {
 
   const representationBias = {};
   uniqueValues.forEach((value) => {
-    console.log(occurrenceCount[value]);
     representationBias[value] = (
       (occurrenceCount[value] / Math.max(...Object.values(occurrenceCount))) *
       100
     ).toFixed(1);
   });
-
-  console.log("test", Object.values(occurrenceCount));
-  console.log("representationBias", representationBias);
 
   const chartConfig = {
     type: "bar",

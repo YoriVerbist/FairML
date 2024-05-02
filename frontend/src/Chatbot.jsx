@@ -35,8 +35,6 @@ function Chatbot({ user, setUser }) {
   const handleRowSelect = (patient) => {
     setSelectedPatient(patients.find((p) => p.id === patient));
   };
-  console.log("user", user);
-  console.log("updateCount", updateCount);
 
   return (
     <>

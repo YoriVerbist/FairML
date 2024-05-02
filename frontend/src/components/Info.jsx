@@ -51,7 +51,7 @@ function Info({ user }) {
         <Card className="border-2 mt-6 w-96">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
-              Hx Radiothreapy
+              Hx Radiotherapy
             </Typography>
             <Typography>
               If the patient has had radiation therapy to the head and neck

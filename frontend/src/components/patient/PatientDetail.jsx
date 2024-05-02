@@ -8,7 +8,7 @@ const KEYS = [
   "Gender",
   "Age",
   "Smoking",
-  "History Radiothreapy",
+  "History Radiotherapy",
   "Thyroid Function",
   "Physical Examination",
   "Adenopathy",

@@ -10,7 +10,7 @@ export default function ModelOverview({
   updateCount,
   user,
 }) {
-  const [accuracy, setAccuracy] = useState(null);
+  const [accuracy, setAccuracy] = useState(1);
 
   if (user.id === "") {
     user = {
@@ -24,18 +24,18 @@ export default function ModelOverview({
     console.log("Fetching model data...");
     modelService.getModel(user).then((data) => {
       setAccuracy(data.accuracy);
-      console.log(accuracy);
+      console.log("acc", accuracy);
     });
   }, [patient, updateCount, patients, user]);
-
-  const acc = parseFloat(accuracy.toFixed(4));
-  const negAcc = parseFloat((1 - accuracy).toFixed(4));
 
   const chartConfig = {
     type: "donut",
     width: 200,
     height: 180,
-    series: [acc, negAcc],
+    series: [
+      parseFloat(accuracy.toFixed(3)),
+      parseFloat((1 - accuracy).toFixed(3)),
+    ],
     options: {
       chart: {
         toolbar: {
@@ -61,7 +61,7 @@ export default function ModelOverview({
     "Age",
     "Smoking",
     "History Smoking",
-    "History Radiothreapy",
+    "History Radiotherapy",
     "Thyroid Function",
     "Physical Examination",
     "Adenopathy",
