@@ -333,7 +333,6 @@ def get_feature_importances_tool(removed_features: list = []):
     The removed_features argument can be used to calculate the feature values of
     while excluding the given list
     """
-    print(removed_features)
     X_train, y_train, X_test, y_test = load_data(removed_features)
     model = train_model(X_train, y_train)
     # Calculate permutation importance
@@ -343,7 +342,6 @@ def get_feature_importances_tool(removed_features: list = []):
     shap_values = explainer(X_test)
     vals = np.abs(shap_values.values).mean(0)
     vals /= sum(vals)
-    print(vals)
     feature_names = X_test.columns
 
     # Zip the two lists together to create a list of tuples
@@ -352,6 +350,5 @@ def get_feature_importances_tool(removed_features: list = []):
     # Convert the list of tuples into a dictionary
     my_dict = dict(combined_list)
     sorted_dict = dict(sorted(my_dict.items(), key=lambda item: item[1], reverse=True))
-    print(sorted_dict)
 
     return sorted_dict.keys(), sorted_dict.values()
