@@ -21,26 +21,26 @@ export default function StickyNavbar({ user, setUser }) {
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
             {user.id === "" ? (
-              <Link to="/">FairML</Link>
+              <Link to="/FairML/">FairML</Link>
             ) : (
-              <Link to="/dashboard">FairML</Link>
+              <Link to="/FairML/dashboard">FairML</Link>
             )}
           </Typography>
           <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
-            <Link to="/info">Data Information</Link>
+            <Link to="/FairML/info">Data Information</Link>
           </Typography>
           <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
             {user.id === "" ? (
-              <Link to="/">Manual Steering</Link>
+              <Link to="/FairML/">Manual Steering</Link>
             ) : (
-              <Link to="/dashboard">Manual Steering</Link>
+              <Link to="/FairML/dashboard">Manual Steering</Link>
             )}
           </Typography>
           <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
             {user.id === "" ? (
-              <Link to="/">Chatbot</Link>
+              <Link to="/FairML/">Chatbot</Link>
             ) : (
-              <Link to="/chatbot">Chatbot</Link>
+              <Link to="/FairML/chatbot">Chatbot</Link>
             )}
           </Typography>
           <div className="flex items-center gap-4">
@@ -51,7 +51,7 @@ export default function StickyNavbar({ user, setUser }) {
                   size="sm"
                   className="hidden lg:inline-block"
                 >
-                  <Link to="/">Sign In</Link>
+                  <Link to="/FairML/">Sign In</Link>
                 </Button>
               ) : (
                 <Button
@@ -60,7 +60,7 @@ export default function StickyNavbar({ user, setUser }) {
                   className="hidden lg:inline-block"
                   onClick={handleSetUser}
                 >
-                  <Link to="/">Sign Out</Link>
+                  <Link to="/FairML/">Sign Out</Link>
                 </Button>
               )}
             </div>

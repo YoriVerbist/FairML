@@ -18,9 +18,9 @@ function Landing({ user, setUser }) {
 
   const selectedDashType = () => {
     if (userService.createUser(user)) {
-      navigate("/dashboard");
+      navigate("/FairML/dashboard");
     } else {
-      naviage("/error-page");
+      naviage("/FairML/error-page");
     }
   };
 

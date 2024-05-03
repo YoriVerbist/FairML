@@ -21,17 +21,22 @@ function App() {
       errorElement: <ErrorPage />,
     },
     {
-      path: "/dashboard",
+      path: "/FairML/",
+      element: <Landing user={user} setUser={setUser} />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/FairML/dashboard",
       element: <Dashboard user={user} setUser={setUser} />,
       errorElement: <ErrorPage />,
     },
     {
-      path: "/chatbot",
+      path: "/FairML/chatbot",
       element: <Chatbot user={user} setUser={setUser} />,
       errorElement: <ErrorPage />,
     },
     {
-      path: "/info",
+      path: "/FairML/info",
       element: <Info user={user} setUser={setUser} />,
       errorElement: <ErrorPage />,
     },

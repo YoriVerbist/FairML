@@ -1,5 +1,5 @@
 import axios from "axios";
-const modelUrl = "http://127.0.0.1:8000/model/";
+const modelUrl = "https://fairml-bgkceq2vfq-ew.a.run.app/model/";
 
 const getModel = async (user) => {
   const request = axios.get(modelUrl + "?user_id=" + user.id);
