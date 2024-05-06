@@ -12,7 +12,8 @@ export default function VariableBias({ patients, selectedValue }) {
     occurrenceCount[value] = (occurrenceCount[value] || 0) + 1;
   });
 
-  const uniqueValues = Object.keys(occurrenceCount).sort();
+  const uniqueValues = Object.keys(occurrenceCount);
+  console.log("count", occurrenceCount);
 
   const representationBias = {};
   uniqueValues.forEach((value) => {
@@ -22,13 +23,17 @@ export default function VariableBias({ patients, selectedValue }) {
     ).toFixed(1);
   });
 
+  const biases = Object.fromEntries(
+    Object.entries(representationBias).sort(([, a], [, b]) => b - a),
+  );
+
   const chartConfig = {
     type: "bar",
     height: 300,
     series: [
       {
         name: "bias (%)",
-        data: [...Object.values(representationBias)],
+        data: [...Object.values(biases)],
       },
     ],
     options: {
@@ -68,7 +73,7 @@ export default function VariableBias({ patients, selectedValue }) {
             fontWeight: 400,
           },
         },
-        categories: [...Object.keys(representationBias)],
+        categories: [...Object.keys(biases)],
       },
       yaxis: {
         title: {
@@ -108,12 +113,15 @@ export default function VariableBias({ patients, selectedValue }) {
 
   return (
     <>
-      <div className="border-2 w-96 m-auto rounded">
+      <div className="w-96 m-auto rounded">
         {selectedValue ? (
           <Chart {...chartConfig} />
         ) : (
-          <p className="text-center">Select a variable to view its bias</p>
+          <p className="text-center font-bold">
+            Select a variable to view its bias
+          </p>
         )}
+        <p>Iets</p>
       </div>
     </>
   );

@@ -16,11 +16,6 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <Landing user={user} setUser={setUser} />,
-      errorElement: <ErrorPage />,
-    },
-    {
       path: "/FairML/",
       element: <Landing user={user} setUser={setUser} />,
       errorElement: <ErrorPage />,
