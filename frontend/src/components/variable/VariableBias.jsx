@@ -27,6 +27,11 @@ export default function VariableBias({ patients, selectedValue }) {
     Object.entries(representationBias).sort(([, a], [, b]) => b - a),
   );
 
+  const possibleIssue = Object.fromEntries(
+    Object.entries(biases).filter(([, val]) => val < 25),
+  );
+  console.log(possibleIssue);
+
   const chartConfig = {
     type: "bar",
     height: 300,
@@ -121,7 +126,16 @@ export default function VariableBias({ patients, selectedValue }) {
             Select a variable to view its bias
           </p>
         )}
-        <p>Iets</p>
+        {Object.keys(possibleIssue).length === 0 ? (
+          <p>No bias issues found</p>
+        ) : (
+          <div>
+            <p>There might be a bias issue for the variables:</p>
+            <p className="text-red-600 font-bold">
+              {...Object.keys(possibleIssue).join(" - ")}
+            </p>
+          </div>
+        )}
       </div>
     </>
   );

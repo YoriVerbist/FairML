@@ -22,7 +22,7 @@ export default function ViewVariable({ patients, user }) {
 
   return (
     <>
-      <Card className="flex flex-col h-full w-[400px] max-h-[850px] border-2 border-blue-gray-100 ">
+      <Card className="flex flex-col h-full w-[400px] max-h-[950px] border-2 border-blue-gray-100 ">
         <div>
           <Tooltip
             title="View Variables"
