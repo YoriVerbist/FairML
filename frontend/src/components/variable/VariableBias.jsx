@@ -2,15 +2,39 @@ import Chart from "react-apexcharts";
 
 export default function VariableBias({ patients, selectedValue }) {
   const occurrenceCount = {};
+  console.log(patients);
+  if (selectedValue === "Age") {
+    patients.forEach((patient) => {
+      const value = patient[selectedValue];
+      if (value < 20) {
+        console.log("here");
+        occurrenceCount["15-19"] = (occurrenceCount["10-19"] || 0) + 1;
+      } else if (value < 30 && value > 19) {
+        occurrenceCount["20-29"] = (occurrenceCount["20-29"] || 0) + 1;
+      } else if (value < 40 && value > 29) {
+        occurrenceCount["30-39"] = (occurrenceCount["30-39"] || 0) + 1;
+      } else if (value < 50 && value > 39) {
+        occurrenceCount["40-49"] = (occurrenceCount["40-49"] || 0) + 1;
+      } else if (value < 60 && value > 49) {
+        occurrenceCount["50-59"] = (occurrenceCount["50-59"] || 0) + 1;
+      } else if (value < 70 && value > 59) {
+        occurrenceCount["60-69"] = (occurrenceCount["60-69"] || 0) + 1;
+      } else if (value < 80 && value > 69) {
+        occurrenceCount["70-79"] = (occurrenceCount["70-79"] || 0) + 1;
+      } else if (value < 90 && value > 79) {
+        occurrenceCount["80-89"] = (occurrenceCount["80-89"] || 0) + 1;
+      }
+    });
+  } else {
+    // Loop through the payload data
+    patients.forEach((patient) => {
+      // Get the value of the Focality key from the current patient object
+      const value = patient[selectedValue];
 
-  // Loop through the payload data
-  patients.forEach((patient) => {
-    // Get the value of the Focality key from the current patient object
-    const value = patient[selectedValue];
-
-    // Increment the occurrence count for the value
-    occurrenceCount[value] = (occurrenceCount[value] || 0) + 1;
-  });
+      // Increment the occurrence count for the value
+      occurrenceCount[value] = (occurrenceCount[value] || 0) + 1;
+    });
+  }
 
   const uniqueValues = Object.keys(occurrenceCount);
   console.log("count", occurrenceCount);
