@@ -2,13 +2,11 @@ import Chart from "react-apexcharts";
 
 export default function VariableBias({ patients, selectedValue }) {
   const occurrenceCount = {};
-  console.log(patients);
   if (selectedValue === "Age") {
     patients.forEach((patient) => {
       const value = patient[selectedValue];
       if (value < 20) {
-        console.log("here");
-        occurrenceCount["15-19"] = (occurrenceCount["10-19"] || 0) + 1;
+        occurrenceCount["10-19"] = (occurrenceCount["10-19"] || 0) + 1;
       } else if (value < 30 && value > 19) {
         occurrenceCount["20-29"] = (occurrenceCount["20-29"] || 0) + 1;
       } else if (value < 40 && value > 29) {
@@ -37,7 +35,6 @@ export default function VariableBias({ patients, selectedValue }) {
   }
 
   const uniqueValues = Object.keys(occurrenceCount);
-  console.log("count", occurrenceCount);
 
   const representationBias = {};
   uniqueValues.forEach((value) => {
@@ -54,7 +51,6 @@ export default function VariableBias({ patients, selectedValue }) {
   const possibleIssue = Object.fromEntries(
     Object.entries(biases).filter(([, val]) => val < 25),
   );
-  console.log(possibleIssue);
 
   const chartConfig = {
     type: "bar",

@@ -13,7 +13,77 @@ export default function VariableInfo({
     if (selectedValue) {
       console.log("Calculating feature recurrence rate...");
       modelService.getRecurrence(selectedValue).then((data) => {
-        setRecurrenceRate(data);
+        if (selectedValue === "Age") {
+          const occurrenceCount = {};
+          occurrenceCount["15-19"] =
+            Object.entries(data)
+              .filter(([age, _]) => age < 20)
+              .map((item) => item[1])
+              .reduce((acc, cur) => acc + cur, 0) /
+            Object.entries(data)
+              .filter(([age, _]) => age < 20)
+              .map((item) => item[1]).length;
+          occurrenceCount["20-29"] =
+            Object.entries(data)
+              .filter(([age, _]) => age < 30 && age > 19)
+              .map((item) => item[1])
+              .reduce((acc, cur) => acc + cur, 0) /
+            Object.entries(data)
+              .filter(([age, _]) => age < 30 && age > 19)
+              .map((item) => item[1]).length;
+          occurrenceCount["30-39"] =
+            Object.entries(data)
+              .filter(([age, _]) => age < 40 && age > 29)
+              .map((item) => item[1])
+              .reduce((acc, cur) => acc + cur, 0) /
+            Object.entries(data)
+              .filter(([age, _]) => age < 40 && age > 29)
+              .map((item) => item[1]).length;
+          occurrenceCount["40-49"] =
+            Object.entries(data)
+              .filter(([age, _]) => age < 50 && age > 39)
+              .map((item) => item[1])
+              .reduce((acc, cur) => acc + cur, 0) /
+            Object.entries(data)
+              .filter(([age, _]) => age < 50 && age > 39)
+              .map((item) => item[1]).length;
+          occurrenceCount["50-59"] =
+            Object.entries(data)
+              .filter(([age, _]) => age < 60 && age > 49)
+              .map((item) => item[1])
+              .reduce((acc, cur) => acc + cur, 0) /
+            Object.entries(data)
+              .filter(([age, _]) => age < 60 && age > 49)
+              .map((item) => item[1]).length;
+          occurrenceCount["60-69"] =
+            Object.entries(data)
+              .filter(([age, _]) => age < 70 && age > 59)
+              .map((item) => item[1])
+              .reduce((acc, cur) => acc + cur, 0) /
+            Object.entries(data)
+              .filter(([age, _]) => age < 70 && age > 59)
+              .map((item) => item[1]).length;
+          occurrenceCount["70-79"] =
+            Object.entries(data)
+              .filter(([age, _]) => age < 80 && age > 69)
+              .map((item) => item[1])
+              .reduce((acc, cur) => acc + cur, 0) /
+            Object.entries(data)
+              .filter(([age, _]) => age < 80 && age > 69)
+              .map((item) => item[1]).length;
+          occurrenceCount["80-89"] =
+            Object.entries(data)
+              .filter(([age, _]) => age < 90 && age > 79)
+              .map((item) => item[1])
+              .reduce((acc, cur) => acc + cur, 0) /
+            Object.entries(data)
+              .filter(([age, _]) => age < 90 && age > 79)
+              .map((item) => item[1]).length;
+
+          setRecurrenceRate(occurrenceCount);
+        } else {
+          setRecurrenceRate(data);
+        }
       });
     }
   }, [selectedValue]);
