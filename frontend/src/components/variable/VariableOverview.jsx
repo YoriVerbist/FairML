@@ -149,6 +149,9 @@ export default function VariableOverview({ patients, updateCount, user }) {
           <Tooltip
             title="Data Overview"
             content="Here you can see the how important each feature is when predicting if a specific patient will develop a new tumor. The higher the value, the more important the feature is."
+            content2={
+              "NOTE: It might take a couple of seconds for this graph to update when changes are applied."
+            }
           />
           <Typography variant="h4" color="gray" className="mt-4 uppercase">
             Data Overview
