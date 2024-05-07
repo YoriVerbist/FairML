@@ -27,7 +27,7 @@ export default function VariableOverview({ patients, updateCount, user }) {
   if (!importances) {
     return (
       <>
-        <Card className="flex flex-col w-[900px] max-h-[300px] border-2 border-blue-gray-100 items-center h-screen">
+        <Card className="flex flex-col w-[900px] max-h-[300px] border-2 border-blue-gray-100 h-screen">
           <div>
             <Tooltip
               title="Data Overview"
