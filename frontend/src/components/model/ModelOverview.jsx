@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Card, Typography, CardBody } from "@material-tailwind/react";
+import { Card, Typography, CardBody, Tooltip } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
 import modelService from "../../services/imporances";
-import Tooltip from "../Tooltip";
+import CustomTooltip from "../Tooltip";
 
 export default function ModelOverview({
   patients,
@@ -73,12 +73,30 @@ export default function ModelOverview({
     "Stage",
     "Response",
   ];
+  const INFO = [
+    "Gender of patient",
+    "Age of patient",
+    "Patient is a smoker",
+    "Patient smoked in the past",
+    "Patient had readiation therapy to head and neck area",
+    "Patient's thyroid was working properly",
+    "The presence of a goiter and which type it is. A goiter is a swelling in the neck resulting from an enlarged thyroid gland.",
+    "Adenopathy refers to swollen glands, such as the lymph nodes.",
+    "Pathological subtype of cancer, so which type of cancer that the patient had in the past.",
+    "Whether the cancer was present in one location (unifocal) or in multiple places (multifocal)",
+    "Risk assessment according to ATA (American Thyroid Association) guidelines",
+    "Size Of Original Tumor",
+    "Nearby Lymph Nodes",
+    "Spread of cancer from one part of the body to another",
+    "Stage of cancer patient previously had",
+    "Initial treatment response to the cancer the patient had in the past",
+  ];
 
   return (
     <>
       <Card className="flex flex-col w-[900px] max-h-[300px] border-2 border-blue-gray-100  h-screen">
         <div>
-          <Tooltip
+          <CustomTooltip
             title="Overall Model Accuracy"
             content="Here you can see the how important each feature is when predicting if a specific patient will develop a new tumor. The higher the value, the more important the feature is."
           />
@@ -104,22 +122,64 @@ export default function ModelOverview({
                 Features
               </Typography>
               <ul>
-                {KEYS.slice(0, 5).map((val) => (
-                  <li className="text-gray-500">- {val}</li>
+                {KEYS.slice(0, 5).map((val, index) => (
+                  <Tooltip
+                    content={
+                      <div className="w-60">
+                        <Typography
+                          variant="small"
+                          color="white"
+                          className="font-normal opacity-80"
+                        >
+                          {INFO[index]}
+                        </Typography>
+                      </div>
+                    }
+                  >
+                    <li className="text-gray-500">- {val}</li>
+                  </Tooltip>
                 ))}
               </ul>
             </div>
             <div className="text-left mt-4 mx-4">
               <ul>
-                {KEYS.slice(5, 11).map((val) => (
-                  <li className="text-gray-500">- {val}</li>
+                {KEYS.slice(5, 11).map((val, index) => (
+                  <Tooltip
+                    content={
+                      <div className="w-60">
+                        <Typography
+                          variant="small"
+                          color="white"
+                          className="font-normal opacity-80"
+                        >
+                          {INFO[index + 5]}
+                        </Typography>
+                      </div>
+                    }
+                  >
+                    <li className="text-gray-500">- {val}</li>
+                  </Tooltip>
                 ))}
               </ul>
             </div>
             <div className="text-left mt-4 mx-4">
               <ul>
-                {KEYS.slice(11, 18).map((val) => (
-                  <li className="text-gray-500">- {val}</li>
+                {KEYS.slice(11, 18).map((val, index) => (
+                  <Tooltip
+                    content={
+                      <div className="w-60">
+                        <Typography
+                          variant="small"
+                          color="white"
+                          className="font-normal opacity-80"
+                        >
+                          {INFO[index + 11]}
+                        </Typography>
+                      </div>
+                    }
+                  >
+                    <li className="text-gray-500">- {val}</li>
+                  </Tooltip>
                 ))}
               </ul>
             </div>
