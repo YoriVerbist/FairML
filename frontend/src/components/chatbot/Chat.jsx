@@ -7,7 +7,10 @@ export default function Chat({ patients, user, setUpdateCount }) {
         introMessage={{
           html: "<p>Talk with me to get more information about the dataset.</p><br> <p>E.g. What features are included in the data?</p> <p> Can you evaluate the model?</p> <p> Can you calculate the feature importances?</p>",
         }}
-        request={{ url: "https://fairml-bgkceq2vfq-ew.a.run.app/chat" }}
+        request={{
+          url: "https://fairml-bgkceq2vfq-ew.a.run.app/chat",
+          method: "POST",
+        }}
         requestInterceptor={(details) => {
           details.body.messages.push({ user: user.id });
           console.log(details);
