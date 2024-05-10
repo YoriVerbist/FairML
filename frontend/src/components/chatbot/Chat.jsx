@@ -1,17 +1,6 @@
 import { DeepChat } from "deep-chat-react";
-import { Button } from "@material-tailwind/react";
 
 export default function Chat({ patients, user, setUpdateCount }) {
-  const url = "https://fairml-bgkceq2vfq-ew.a.run.app/chat";
-  const handleClick = async (text) => {
-    console.log(text);
-    document
-      .getElementById("text-input")
-      .classList.remove("text-input-placeholder");
-    document.getElementById("text-input").textContent = text;
-    console.log(document.getElementById("text-input"));
-  };
-
   return (
     <>
       <DeepChat
