@@ -1,5 +1,5 @@
 import axios from "axios";
-const modelUrl = "https://fairml-bgkceq2vfq-ew.a.run.app/model/";
+const modelUrl = "https://fairml-481932072131.europe-west1.run.app/model/";
 
 const getModel = async (user) => {
   const request = axios.get(modelUrl + "?user_id=" + user.id);

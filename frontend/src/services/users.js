@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "https://fairml-bgkceq2vfq-ew.a.run.app/users/";
+const url = "https://fairml-481932072131.europe-west1.run.app/users/";
 
 const createUser = async (user) => {
   const request = axios.post(url, {

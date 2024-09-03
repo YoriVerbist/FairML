@@ -1,6 +1,6 @@
 import axios from "axios";
-const patientsUrl = "https://fairml-bgkceq2vfq-ew.a.run.app/data/";
-const modelUrl = "https://fairml-bgkceq2vfq-ew.a.run.app/model/";
+const patientsUrl = "https://fairml-481932072131.europe-west1.run.app/data/";
+const modelUrl = "https://fairml-481932072131.europe-west1.run.app/model/";
 
 const getAll = async () => {
   const request = axios.get(patientsUrl);
